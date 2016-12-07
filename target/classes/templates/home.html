@@ -14,14 +14,43 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("tr").click(function () {
+                    alert($(this).closest('tr').children('td.nazwa').text());
+                });
+            });
+
+        </script>
         <link rel="stylesheet" th:href="@{/css/style.css}"
               href="../../css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     </head>
-    <body>
-        <div th:replace="header :: header">Hello World!</div>
+    <body >
+        <div th:replace="header :: header"></div>
+        <div class="klubList" th:unless="${#lists.isEmpty(listaKlubow)}">
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th th:text="Nazwa">Nazwa</th>
+                        <th th:text="Ciastko"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block>
+                        <tr th:each="klub : ${listaKlubow}" >
+                            <td class="nazwa" th:text="${klub.nazwa}"/>
+                            <td th:text="ciastko"/>
+                        </tr>
+                    </th:block>
+
+                </tbody>
+            </table>
+        </div>
+
+
     </body>
     <footer>
-         <div th:replace="footer :: footer"></div>
+        <div th:replace="footer :: footer"></div>
     </footer>
 </html>
