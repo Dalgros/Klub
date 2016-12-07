@@ -28,10 +28,6 @@ public class ZawodnikStatystykiPK implements Serializable {
         return idZawodnik;
     }
 
-    public void setIdZawodnik(int idZawodnik) {
-        this.idZawodnik = idZawodnik;
-    }
-
     public int getIdSezon() {
         return idSezon;
     }

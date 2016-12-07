@@ -40,6 +40,6 @@
         <mapping class="com.mycompany.model.Zawodnik"/>
         <mapping class="com.mycompany.model.ZawodnikStatystyki"/>
         <mapping class="com.mycompany.model.ZawodnikStatystykiPK"/>
-
+        
     </session-factory>
 </hibernate-configuration>

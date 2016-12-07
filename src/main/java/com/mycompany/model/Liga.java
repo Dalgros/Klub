@@ -51,11 +51,7 @@ public class Liga implements Serializable {
     public Integer getIdLiga() {
         return idLiga;
     }
-
-    public void setIdLiga(Integer idLiga) {
-        this.idLiga = idLiga;
-    }
-
+    
     public String getNazwa() {
         return nazwa;
     }

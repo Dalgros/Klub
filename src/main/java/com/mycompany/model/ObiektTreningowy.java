@@ -39,10 +39,6 @@ public class ObiektTreningowy implements Serializable {
         return idBudynek;
     }
 
-    public void setIdBudynek(Integer idBudynek) {
-        this.idBudynek = idBudynek;
-    }
-
     public String getDyscyplina() {
         return dyscyplina;
     }

@@ -61,10 +61,6 @@ public class CzlonekSztabu implements Serializable {
         return idCzlonek;
     }
 
-    public void setIdCzlonek(Integer idCzlonek) {
-        this.idCzlonek = idCzlonek;
-    }
-
     public String getImie() {
         return imie;
     }

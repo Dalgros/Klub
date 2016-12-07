@@ -28,10 +28,6 @@ public class DruzynaStatystykiPK implements Serializable {
         return idDruzyna;
     }
 
-    public void setIdDruzyna(int idDruzyna) {
-        this.idDruzyna = idDruzyna;
-    }
-
     public int getIdSezon() {
         return idSezon;
     }

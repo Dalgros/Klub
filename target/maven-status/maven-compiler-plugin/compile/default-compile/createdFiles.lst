@@ -5,6 +5,7 @@ com\mycompany\hibernate\HibernateConfig.class
 com\mycompany\model\Kontrakt.class
 com\mycompany\model\Liga.class
 com\mycompany\model\Sezon.class
+com\mycompany\controllers\KlubController.class
 com\mycompany\model\CzlonekSztabu.class
 com\mycompany\model\BudynekAdministracyjny.class
 com\mycompany\model\ZawodnikStatystyki.class

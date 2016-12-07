@@ -51,10 +51,6 @@ public class Kontrakt implements Serializable {
         return idKontrakt;
     }
 
-    public void setIdKontrakt(Integer idKontrakt) {
-        this.idKontrakt = idKontrakt;
-    }
-
     public Date getPoczatekKontraktu() {
         return poczatekKontraktu;
     }

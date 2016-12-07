@@ -12,6 +12,11 @@ import org.hibernate.cfg.Configuration;
 import com.mycompany.model.Klub;
 import com.mycompany.model.Sekcja;
 import com.mycompany.model.Sezon;
+import java.sql.Blob;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +34,7 @@ public class Startup
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException, SQLException, IOException
     {
         SpringApplication.run(Startup.class, args);
         logger.info("Application started");
@@ -47,6 +52,7 @@ public class Startup
         
         Klub klub = new Klub();
         klub.setNazwa("Jaga");
+        klub.setLogo("src/main/resources/static/images/jaga.jpg", session);
         
         Sekcja sekcja = new Sekcja();
         sekcja.setDyscyplina("Żużel");
@@ -55,6 +61,7 @@ public class Startup
 
         session.persist(klub);   
         session.persist(sekcja);
+        
      
         t.commit();//transaction is committed  
         

@@ -49,10 +49,6 @@ public class Sekcja implements Serializable {
         return idSekcja;
     }
 
-    public void setIdSekcja(Integer idSekcja) {
-        this.idSekcja = idSekcja;
-    }
-
     public String getDyscyplina() {
         return dyscyplina;
     }

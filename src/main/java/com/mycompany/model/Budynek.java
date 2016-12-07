@@ -58,10 +58,6 @@ public class Budynek implements Serializable {
         return idbudynek;
     }
 
-    public void setIdbudynek(Integer idbudynek) {
-        this.idbudynek = idbudynek;
-    }
-
     public String getKodPocztowy() {
         return kodPocztowy;
     }

@@ -59,10 +59,6 @@ public class DruzynaStatystyki implements Serializable {
         return druzynaStatystykiPK;
     }
 
-    public void setDruzynaStatystykiPK(DruzynaStatystykiPK druzynaStatystykiPK) {
-        this.druzynaStatystykiPK = druzynaStatystykiPK;
-    }
-
     public Integer getPunkty() {
         return punkty;
     }

@@ -56,10 +56,6 @@ public class Druzyna implements Serializable {
         return idDruzyna;
     }
 
-    public void setIdDruzyna(Integer idDruzyna) {
-        this.idDruzyna = idDruzyna;
-    }
-
     public String getNazwa() {
         return nazwa;
     }

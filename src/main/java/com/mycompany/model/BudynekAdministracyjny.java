@@ -34,10 +34,6 @@ public class BudynekAdministracyjny implements Serializable {
         return idBudynek;
     }
 
-    public void setIdBudynek(Integer idBudynek) {
-        this.idBudynek = idBudynek;
-    }
-
     public Budynek getBudynek() {
         return budynek;
     }

@@ -65,10 +65,6 @@ public class Zawodnik implements Serializable {
         return idZawodnik;
     }
 
-    public void setIdZawodnik(Integer idZawodnik) {
-        this.idZawodnik = idZawodnik;
-    }
-
     public String getImie() {
         return imie;
     }

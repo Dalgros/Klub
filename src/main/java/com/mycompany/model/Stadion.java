@@ -53,10 +53,6 @@ public class Stadion implements Serializable {
         return idBudynek;
     }
 
-    public void setIdBudynek(Integer idBudynek) {
-        this.idBudynek = idBudynek;
-    }
-
     public int getIloscMiejsc() {
         return iloscMiejsc;
     }

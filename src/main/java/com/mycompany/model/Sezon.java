@@ -44,10 +44,6 @@ public class Sezon implements Serializable {
         return idSezon;
     }
 
-    public void setIdSezon(Integer idSezon) {
-        this.idSezon = idSezon;
-    }
-
     public Date getData() {
         return data;
     }

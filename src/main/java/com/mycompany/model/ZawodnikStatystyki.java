@@ -56,10 +56,6 @@ public class ZawodnikStatystyki implements Serializable {
         return zawodnikStatystykiPK;
     }
 
-    public void setZawodnikStatystykiPK(ZawodnikStatystykiPK zawodnikStatystykiPK) {
-        this.zawodnikStatystykiPK = zawodnikStatystykiPK;
-    }
-
     public Integer getStrzeloneBramki() {
         return strzeloneBramki;
     }
