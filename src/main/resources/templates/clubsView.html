@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html 
     xmlns:th="http://www.thymeleaf.org" >
     <head>
-        <title>HOME</title>
+        <title>Clubs View</title>
         <meta charset="UTF-8"/>
 
         <meta charset="UTF-8"/>
@@ -16,10 +15,18 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     </head>
     <body >
-        
         <div th:replace="header :: header"></div>
-        <h1>Strona glowna</h1>
-        
+        <h1>Lista Klubów</h1>
+        <div   th:unless="${#lists.isEmpty(clubList)}">
+            <div class='floating-box'  th:each="club : ${clubList}" >
+                <a th:href="@{/clubShow/__${club.idKlub}__}"> 
+                    <img th:attr="src=@{/clubImage/__${club.idKlub}__}" />
+
+                    <p th:text="${club.nazwa}"/>
+                </a>
+            </div>
+
+        </div>
     </body>
     <footer>
         <div th:replace="footer :: footer"></div>

@@ -7,30 +7,30 @@ package com.mycompany.controllers;
 
 import com.mycompany.model.Klub;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author user
  */
 @Controller
-public class KlubController {
+public class ClubsController {
+    
+     @RequestMapping({"/clubsView"})
+    public String clubsPage(Model model) {
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
 
-    @RequestMapping(value="/klubShow/{id}",method=RequestMethod.GET)
-    public String clubPage(@PathVariable("id") String id) {
-        
-        System.out.println(""+id);
-        return "/klubView";
+        //creating session object  
+        Session session = factory.openSession();
+        List<Klub> listaKlubow = session.createCriteria(Klub.class).list();
+        model.addAttribute("clubList", listaKlubow);
+        return "/clubsView";
     }
-   
 }

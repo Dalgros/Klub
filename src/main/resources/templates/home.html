@@ -16,17 +16,10 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     </head>
     <body >
+        
         <div th:replace="header :: header"></div>
-        <h1>Lista Klubów</h1>
-        <div   th:unless="${#lists.isEmpty(listaKlubow)}">
-            <div class='floating-box'  th:each="klub : ${listaKlubow}" >
-                <a th:href="@{/klubShow/__${klub.idKlub}__}"> 
-                    <p th:text="${klub.idKlub}"/>
-                    <p th:text="${klub.nazwa}"/>
-                </a>
-            </div>
-
-        </div>
+        <h1>Strona glowna</h1>
+        
     </body>
     <footer>
         <div th:replace="footer :: footer"></div>
