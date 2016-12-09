@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html 
     xmlns:th="http://www.thymeleaf.org" >
     <head>
-        <title>Club</title>
+        <title>Create success</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -16,7 +20,18 @@
     <body>
         <div class="container">
             <div th:replace="header :: header"></div>
-            <p th:text="${club.nazwa}"/>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+
+                    <div class="alert alert-success">
+                        <strong>Success!</strong> Club created successfully!
+                    </div>
+                    <br /> <a href="#"
+                              th:href="@{/club/__${club.idKlub}__}"
+                              th:text="Show created club">Link</a>
+                </div>
+            </div>
         </div>
     </body>
 </html>

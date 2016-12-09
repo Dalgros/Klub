@@ -31,9 +31,18 @@ and open the template in the editor.
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/home">HOME PAGE</a></li>
-                            <li><a href="">DISCIPLINES</a></li>
-                            <li><a href="#">SEARCH<span class="glyphicon glyphicon-search"></span></a></li>
+                            <li>
+                                <a th:if="${session.loggedAdmin==true}" th:href="@{/logout}" th:inline="text">[[${#httpServletRequest.remoteUser}]]
+                                    <span style="margin-left: 10px" class="glyphicon glyphicon-log-out"></span>
+                                </a> 
+                                <a th:if="${session.loggedAdmin==false}" th:href="@{/login}">
+                                    <span class="glyphicon glyphicon-log-in"></span> Log in
+                                </a>
+                            </li>
+                                        
+                                                        <li><a href="/home">HOME PAGE</a></li>
+                                                        <li><a href="">DISCIPLINES</a></li>
+                                                        <li><a href="#">SEARCH<span class="glyphicon glyphicon-search"></span></a></li>
                             <!-- <li th:if="${#authorization.expression('!isAuthenticated()')}">
                                  <a href="/signin" th:href="@{/signin}">Sign in</a>
                              </li>

@@ -17,12 +17,11 @@
             <div th:replace="header :: header"></div>
             <h1>Edit club</h1>
 
-            <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
+<!--            <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
                 <input type="text" name="name" />
                 <input type="file" name="file" />
                 <input type="submit" value="Submit"/>
-            </form>
+            </form>-->
         </div>
-        <div th:replace="footer :: footer"></div>
     </body>
 </html>

@@ -5,6 +5,7 @@
  */
 package com.mycompany.controllers;
 
+import com.mycompany.forms.ClubForm;
 import com.mycompany.model.Klub;
 import com.mysql.jdbc.Blob;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import java.util.List;
 import javax.ejb.ApplicationException;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -28,6 +30,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.LobCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +51,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class ClubController {
 
     Logger log = Logger.getLogger(ClubController.class);
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String clubPage(@PathVariable("id") String id) {
 
@@ -77,7 +80,7 @@ public class ClubController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView createClub(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
+    public ModelAndView createClub(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, Model model) throws IOException {
 
         if (!file.isEmpty()) {
             byte[] bytes;
@@ -112,18 +115,20 @@ public class ClubController {
             SessionFactory factory = cfg.buildSessionFactory();
             Session session = factory.openSession();
             Transaction t = session.beginTransaction();
-            
-            Klub klub = new Klub();
-            klub.setNazwa(name);
-            
+
+            Klub club = new Klub();
+            club.setNazwa(name);
+
             LobCreator lcreator = Hibernate.getLobCreator(session);
             Blob blob = (Blob) lcreator.createBlob(bytes);
-            klub.setLogo(blob);
-            
-            session.persist(klub);
+            club.setLogo(blob);
+
+            session.persist(club);
             t.commit();
             session.close();
-            return new ModelAndView("redirect:/club/show_club_view");
+            
+            model.addAttribute("club", club);
+            return new ModelAndView("redirect:/club/create_success_view");
         }
         return new ModelAndView("redirect:/home_view");
     }

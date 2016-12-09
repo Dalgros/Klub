@@ -15,14 +15,44 @@
     <body>
         <div class="container">
             <div th:replace="header :: header"></div>
-            <h1>Create club</h1>
 
-<!--            <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
-                <input type="text" name="name" />
-                <input type="file" name="file" />
-                <input type="submit" value="Submit"/>
-            </form>-->
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 align="center">Create club</h1>
+                    
+                    <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Club name:</label> 
+                            <input type="text" name="name" class="form-control" placeholder="Enter club name"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Logo:</label> 
+                            <input type="file" name="file"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+<!--                    <form action="#" method="post" th:action="@{/club/create}" th:object="${clubForm}">
+                        <div th:if="${#fields.hasErrors('global')}">
+                            <div th:errors="*{global}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Club name:</label> 
+                            <input type="text" th:field="*{name}" class="form-control" placeholder="Enter club name"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
+
+                        <div class="form-group">
+                            <label>Logo:</label> 
+                            <input type="file" name="Logo file" th:field="*{logo}"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}">Name error</div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>-->
+                </div>
+            </div>
         </div>
-        <div th:replace="footer :: footer"></div>
     </body>
 </html>
