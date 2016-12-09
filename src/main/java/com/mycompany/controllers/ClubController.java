@@ -53,8 +53,18 @@ public class ClubController {
     Logger log = Logger.getLogger(ClubController.class);
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String clubPage(@PathVariable("id") String id) {
+    public String clubPage(@PathVariable("id") String id, Model model) {
 
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+
+        //creating session object  
+        Session session = factory.openSession();
+        
+        Klub club = session.find(Klub.class, Integer.parseInt(id));
+        model.addAttribute("club", club);
+        
         return "/club/show_club_view";
     }
 
@@ -68,14 +78,14 @@ public class ClubController {
         //creating session object  
         Session session = factory.openSession();
 
-        Klub klub = session.find(Klub.class, Integer.parseInt(id));
+        Klub club = session.find(Klub.class, Integer.parseInt(id));
 
-        return klub.getByteLogo();
+        return club.getByteLogo();
     }
 
     @GetMapping("/create")
     public String createClub() {
-        return "/club/create_club_view";
+        return "/club/create" ;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -128,7 +138,7 @@ public class ClubController {
             session.close();
             
             model.addAttribute("club", club);
-            return new ModelAndView("redirect:/club/create_success_view");
+            return new ModelAndView("redirect:/club/" + club.getIdKlub());
         }
         return new ModelAndView("redirect:/home_view");
     }
