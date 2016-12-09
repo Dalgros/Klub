@@ -85,7 +85,7 @@ public class ClubController {
 
     @GetMapping("/create")
     public String createClub() {
-        return "/club/create" ;
+        return "/club/create_club_view" ;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
