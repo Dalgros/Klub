@@ -35,7 +35,15 @@ public class MainController {
     @RequestMapping({"/home", "/"})
     public String homePage(Model model) {
 
-        return "/home";
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+
+        //creating session object  
+        Session session = factory.openSession();
+        List<Klub> clubList = session.createCriteria(Klub.class).list();
+        model.addAttribute("clubList", clubList);
+        return "/home_view";
     }
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>HOME</title>
+        <meta charset="UTF-8"/>
+
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </head>
+    <body >
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <h1 align="center">CLUB LIST</h1>
+            <div th:unless="${#lists.isEmpty(clubList)}">
+                <div class='floating-box'  th:each="club : ${clubList}" >
+                    <a th:href="@{/club/__${club.idKlub}__}"> 
+                        <img th:attr="src=@{/club/image/__${club.idKlub}__}" />
+
+                        <p th:text="${club.nazwa}"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div th:replace="footer :: footer"></div>
+    </body>
+</html>

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.ejb.ApplicationException;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,8 +28,10 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.LobCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,15 +44,18 @@ import org.springframework.web.servlet.ModelAndView;
  * @author user
  */
 @Controller
+@RequestMapping("/club")
 public class ClubController {
 
-    @RequestMapping(value = "/clubShow/{id}", method = RequestMethod.GET)
+    Logger log = Logger.getLogger(ClubController.class);
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String clubPage(@PathVariable("id") String id) {
 
-        return "/clubView";
+        return "/club/show_club_view";
     }
 
-    @RequestMapping(value = "/clubImage/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/image/{id}", method = RequestMethod.GET)
     @ResponseBody
     public byte[] clubPhoto(@PathVariable("id") String id) throws SQLException {
         Configuration cfg = new Configuration();
@@ -64,21 +70,21 @@ public class ClubController {
         return klub.getByteLogo();
     }
 
-    @RequestMapping(value = "/clubCreate")
-    public String clubCreate() {
-        return "/clubCreate";
+    @GetMapping("/create")
+    public String createClub() {
+        return "/club/create_club_view";
     }
 
-    @RequestMapping(value = "/createClub", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView createClub(@RequestParam("name") String name, @RequestParam("file") MultipartFile file) throws IOException {
 
         if (!file.isEmpty()) {
             byte[] bytes;
             bytes = file.getBytes();
-            int width=100;
-            int height=100;
-            
+            int width = 100;
+            int height = 100;
+
             ByteArrayInputStream in = new ByteArrayInputStream(bytes);
             try {
                 BufferedImage img = ImageIO.read(in);
@@ -98,26 +104,28 @@ public class ClubController {
 
                 bytes = buffer.toByteArray();
             } catch (IOException e) {
-                System.out.println("Blad konwersji pliku");
+                log.error("File convertion error");
             }
 
             Configuration cfg = new Configuration();
             cfg.configure("hibernate.cfg.xml");
             SessionFactory factory = cfg.buildSessionFactory();
-
             Session session = factory.openSession();
             Transaction t = session.beginTransaction();
+            
             Klub klub = new Klub();
             klub.setNazwa(name);
+            
             LobCreator lcreator = Hibernate.getLobCreator(session);
             Blob blob = (Blob) lcreator.createBlob(bytes);
             klub.setLogo(blob);
+            
             session.persist(klub);
             t.commit();
             session.close();
-            return new ModelAndView("redirect:/clubView");
+            return new ModelAndView("redirect:/club/show_club_view");
         }
-        return new ModelAndView("redirect:/clubsView");
+        return new ModelAndView("redirect:/home_view");
     }
 
     private static class ApplicationExceptionImpl implements ApplicationException {

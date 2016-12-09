@@ -2,9 +2,7 @@
 <html 
     xmlns:th="http://www.thymeleaf.org" >
     <head>
-        <title>Clubs View</title>
-        <meta charset="UTF-8"/>
-
+        <title>Edit Club</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,21 +12,17 @@
               href="../../css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     </head>
-    <body >
-        <div th:replace="header :: header"></div>
-        <h1>Lista Klubów</h1>
-        <div   th:unless="${#lists.isEmpty(clubList)}">
-            <div class='floating-box'  th:each="club : ${clubList}" >
-                <a th:href="@{/clubShow/__${club.idKlub}__}"> 
-                    <img th:attr="src=@{/clubImage/__${club.idKlub}__}" />
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <h1>Edit club</h1>
 
-                    <p th:text="${club.nazwa}"/>
-                </a>
-            </div>
-
+            <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" />
+                <input type="file" name="file" />
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
-    </body>
-    <footer>
         <div th:replace="footer :: footer"></div>
-    </footer>
+    </body>
 </html>

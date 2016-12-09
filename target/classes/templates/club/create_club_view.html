@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html 
     xmlns:th="http://www.thymeleaf.org" >
     <head>
-        <title>TODO supply a title</title>
+        <title>Create Club</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,10 +13,16 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
     </head>
     <body>
-        <div th:replace="header :: header"></div>
-        <div>TODO write content</div>
-    </body>
-    <footer>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <h1>Create club</h1>
+
+<!--            <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" />
+                <input type="file" name="file" />
+                <input type="submit" value="Submit"/>
+            </form>-->
+        </div>
         <div th:replace="footer :: footer"></div>
-    </footer>
+    </body>
 </html>
