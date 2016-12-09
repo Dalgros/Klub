@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ClubsController {
     
-     @RequestMapping({"/clubsView"})
+     @RequestMapping({"/clubsView","/clubView"})
     public String clubsPage(Model model) {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
@@ -31,6 +31,7 @@ public class ClubsController {
         Session session = factory.openSession();
         List<Klub> listaKlubow = session.createCriteria(Klub.class).list();
         model.addAttribute("clubList", listaKlubow);
+        
         return "/clubsView";
     }
 }
