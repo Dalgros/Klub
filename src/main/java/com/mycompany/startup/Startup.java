@@ -59,8 +59,8 @@ public class Startup
         sekcja.setIdKlub(klub);
 
         Budynek b=new Budynek();
-        b.setKodPocztowy("asdf");
-        b.setUlicanumer("asdfg");
+        b.setKodPocztowy("Kod Pocztowy");
+        b.setUlicanumer("ulica");
         b.setMiejscowosc("DD");
         b.setIdKlub(klub);
 
@@ -71,7 +71,7 @@ public class Startup
         session.persist(b);
         
         Stadion stadion= new Stadion(b.getIdbudynek());
-        stadion.setNazwa("santiago");
+        stadion.setNazwa("Santiago");
         stadion.setIloscMiejsc(123);
         stadion.setDyscyplina("picipolo");
         stadion.setBudynek(b);
