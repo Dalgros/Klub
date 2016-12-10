@@ -17,7 +17,6 @@ import javax.validation.constraints.Size;
 public class Stadion implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id_Budynek")
     private Integer idBudynek;
     

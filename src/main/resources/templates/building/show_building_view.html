@@ -24,13 +24,12 @@
                             <h1 align="center">Buildings</h1>
 
                             <div th:unless="${#lists.isEmpty(arenaList)}" th:each="arena: ${arenaList}">
-                                <h2 align="center">Club arena</h2>
-
-                                <h2 align="center">Club arena</h2>
-                                <p th:tet="${arena.nazwa}"/>
-                                <p th:tet="${arena.iloscMiejsc}"/>
-                                <p th:tet="${arena.dyscyplina}"/>
-
+                                <div th:unless="${arena.idBudynek}!=${building.idbudynek}">
+                                    <h2 align="center">Club arena</h2>
+                                    <p th:text="${arena.nazwa}"/>
+                                    <p th:text="${arena.iloscMiejsc}"/>
+                                    <p th:text="${arena.dyscyplina}"/>
+                                </div>
                             </div>
                             <div th:unless="${#lists.isEmpty(buildingAdminList)}">
                                 <h2 align="center">Club administration</h2>
@@ -44,8 +43,8 @@
 
 
                             <p th:text="${building.miejscowosc}"/>
-                            <!--<p th:text="{building.kodPocztowy}"/>
-                            <p th:text="{building.ulicanumer}"/>-->
+                             <p th:text="${building.kod_pocztowy}"/>
+                              <p th:text="${building.ulicanumer}"/>
                         </div>
                     </div>
                 </div>

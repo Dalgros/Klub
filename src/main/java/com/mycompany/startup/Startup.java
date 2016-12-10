@@ -5,12 +5,14 @@
  */
 package com.mycompany.startup;
 
+import com.mycompany.model.Budynek;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.mycompany.model.Klub;
 import com.mycompany.model.Sekcja;
+import com.mycompany.model.Stadion;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -56,10 +58,25 @@ public class Startup
         sekcja.setPlec("x");
         sekcja.setIdKlub(klub);
 
+        Budynek b=new Budynek();
+        b.setKodPocztowy("asdf");
+        b.setUlicanumer("asdfg");
+        b.setMiejscowosc("DD");
+        b.setIdKlub(klub);
+
+        
+        
         session.persist(klub);   
         session.persist(sekcja);
+        session.persist(b);
         
-     
+        Stadion stadion= new Stadion(b.getIdbudynek());
+        stadion.setNazwa("santiago");
+        stadion.setIloscMiejsc(123);
+        stadion.setDyscyplina("picipolo");
+        stadion.setBudynek(b);
+        //stadion.setBudynek(b);
+        session.persist(stadion);
         t.commit();//transaction is committed  
         session.disconnect();
         
