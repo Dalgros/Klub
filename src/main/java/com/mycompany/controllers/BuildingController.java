@@ -5,8 +5,8 @@
  */
 package com.mycompany.controllers;
 
-import com.mycompany.model.Budynek;
-import com.mycompany.model.Klub;
+import com.mycompany.model.Building;
+import com.mycompany.model.Club;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author user
  */
 @Controller
-@RequestMapping("/club/{id}/buildings")
+@RequestMapping("/club/{idClub}/buildings")
 public class BuildingController {
 
     Logger log = Logger.getLogger(BuildingController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String buildingPage(@PathVariable("id") String id, Model model) {
+    public String buildingPage(@PathVariable("idClub") String idClub, Model model) {
 
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
@@ -40,32 +40,38 @@ public class BuildingController {
         //creating session object  
         Session session = factory.openSession();
         Query query = session.createQuery("from Budynek where Id_Klub=:id");
-        query.setParameter("id", id);
-        List<Budynek> buildingsList = query.getResultList();
-        List buildingAdminList=new ArrayList();
-        List arenaList=new ArrayList();
-        List trainingObjectList=new ArrayList();
-        
-        for (Budynek b : buildingsList) {
-            
+        query.setParameter("id", idClub);
+        List<Building> buildingsList = query.getResultList();
+        List buildingAdminList = new ArrayList();
+        List arenaList = new ArrayList();
+        List trainingObjectList = new ArrayList();
+
+        for (Building b : buildingsList) {
+            log.info("iteracja");
             if (b.getBudynekAdministracyjny() != null) {
                 buildingAdminList.add(b.getBudynekAdministracyjny());
+                log.info("chuj");
             }
-            if (b.getStadion()!=null) {
+            if (b.getStadion() != null) {
                 arenaList.add(b.getStadion());
                 log.info(b.getStadion().getNazwa());
             }
-             if (b.getObiektTreningowy()!=null) {
+            if (b.getObiektTreningowy() != null) {
                 trainingObjectList.add(b.getObiektTreningowy());
             }
 
-
         }
         session.close();
-        model.addAttribute("buildingAdminList",buildingAdminList);
-        model.addAttribute("arenaList",arenaList);
-        model.addAttribute("buildings",buildingsList);
-        model.addAttribute("trainingObjectList",trainingObjectList);
+        model.addAttribute("buildingAdminList", buildingAdminList);
+        model.addAttribute("arenaList", arenaList);
+        model.addAttribute("buildings", buildingsList);
+        model.addAttribute("trainingObjectList", trainingObjectList);
         return "/building/show_building_view";
+    }
+
+    @RequestMapping(value = "/edit/{idBuilding}", method = RequestMethod.GET)
+    public String buildingEdit(@PathVariable("idClub") String idClub, @PathVariable("idBuilding")String idBuilding, Model model) {
+        log.info(idClub+":"+idBuilding);
+        return "/building/edit_building_view";
     }
 }
