@@ -59,7 +59,7 @@ public class Startup
         sekcja.setIdKlub(klub);
 
         Budynek b=new Budynek();
-        b.setKodPocztowy("Kod Pocztowy");
+        b.setKodPocztowy("Kod");
         b.setUlicanumer("ulica");
         b.setMiejscowosc("DD");
         b.setIdKlub(klub);
