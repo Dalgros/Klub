@@ -61,10 +61,10 @@ public class ClubController {
 
         //creating session object  
         Session session = factory.openSession();
-        
+
         Klub club = session.find(Klub.class, Integer.parseInt(id));
         model.addAttribute("club", club);
-        
+
         return "/club/show_club_view";
     }
 
@@ -84,63 +84,67 @@ public class ClubController {
     }
 
     @GetMapping("/create")
-    public String createClub() {
-        return "/club/create_club_view" ;
+    public String createClub(ClubForm clubForm) {
+        return "/club/create_club_view";
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    @RequestMapping(value = "/create", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ModelAndView createClub(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, Model model) throws IOException {
+    @PostMapping("/create")
     @ResponseBody
-    public ModelAndView createClub(@RequestParam("name") String name, @RequestParam("file") MultipartFile file, Model model) throws IOException {
-
-        if (!file.isEmpty()) {
-            byte[] bytes;
-            bytes = file.getBytes();
-            int width = 100;
-            int height = 100;
-
-            ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-            try {
-                BufferedImage img = ImageIO.read(in);
-                if (height == 0) {
-                    height = (width * img.getHeight()) / img.getWidth();
-                }
-                if (width == 0) {
-                    width = (height * img.getWidth()) / img.getHeight();
-                }
-                Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-                BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-                imageBuff.getGraphics().drawImage(scaledImage, 0, 0, new Color(0, 0, 0), null);
-
-                ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-                ImageIO.write(imageBuff, "jpg", buffer);
-
-                bytes = buffer.toByteArray();
-            } catch (IOException e) {
-                log.error("File convertion error");
-            }
-
-            Configuration cfg = new Configuration();
-            cfg.configure("hibernate.cfg.xml");
-            SessionFactory factory = cfg.buildSessionFactory();
-            Session session = factory.openSession();
-            Transaction t = session.beginTransaction();
-
-            Klub club = new Klub();
-            club.setNazwa(name);
-
-            LobCreator lcreator = Hibernate.getLobCreator(session);
-            Blob blob = (Blob) lcreator.createBlob(bytes);
-            club.setLogo(blob);
-
-            session.persist(club);
-            t.commit();
-            session.close();
-            
-            model.addAttribute("club", club);
-            return new ModelAndView("redirect:/club/" + club.getIdKlub());
+    public ModelAndView createClub(@Valid ClubForm clubForm, BindingResult result, Model model) throws IOException {
+        if (result.hasErrors()) {
+            return new ModelAndView("redirect:/club/create");
         }
-        return new ModelAndView("redirect:/home_view");
+
+        byte[] bytes;
+        bytes = clubForm.getLogo().getBytes();
+        int width = 200;
+        int height = 200;
+
+        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+        try {
+            BufferedImage img = ImageIO.read(in);
+            if (height == 0) {
+                height = (width * img.getHeight()) / img.getWidth();
+            }
+            if (width == 0) {
+                width = (height * img.getWidth()) / img.getHeight();
+            }
+            Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+            imageBuff.getGraphics().drawImage(scaledImage, 0, 0, new Color(0, 0, 0), null);
+
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            ImageIO.write(imageBuff, "jpg", buffer);
+
+            bytes = buffer.toByteArray();
+        } catch (IOException e) {
+            log.error("File convertion error");
+        }
+
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Klub club = new Klub();
+        club.setNazwa(clubForm.getName());
+
+        LobCreator lcreator = Hibernate.getLobCreator(session);
+        Blob blob = (Blob) lcreator.createBlob(bytes);
+        club.setLogo(blob);
+
+        session.persist(club);
+        t.commit();
+        session.close();
+
+        model.addAttribute("club", club);
+        return new ModelAndView("redirect:/club/" + club.getIdKlub());
+
     }
 
     private static class ApplicationExceptionImpl implements ApplicationException {

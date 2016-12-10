@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                     <h1 align="center">Create club</h1>
                     
-                    <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
+<!--                    <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Club name:</label> 
                             <input type="text" name="name" class="form-control" placeholder="Enter club name"/>
@@ -31,8 +31,8 @@
                             <input type="file" name="file"/>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-<!--                    <form action="#" method="post" th:action="@{/club/create}" th:object="${clubForm}">
+                    </form>-->
+                    <form action="#" method="post" th:action="@{/club/create}" th:object="${clubForm}" enctype="multipart/form-data">
                         <div th:if="${#fields.hasErrors('global')}">
                             <div th:errors="*{global}"></div>
                         </div>
@@ -48,9 +48,9 @@
                             <input type="file" name="Logo file" th:field="*{logo}"/>
                         </div>
                         <div class="alert alert-warning"
-                             th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}">Name error</div>
+                             th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}">Logo error</div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>-->
+                    </form>
                 </div>
             </div>
         </div>
