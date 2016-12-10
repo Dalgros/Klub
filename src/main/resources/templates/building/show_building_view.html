@@ -24,35 +24,35 @@
                         <p align="center"><img src="https://cdn4.iconfinder.com/data/icons/miu/24/house-home-real_estate-property-glyph-128.png"/></p>
                         <div class='floating-box-building'  th:each="building : ${buildings}" >
                             <div th:unless="${#lists.isEmpty(arenaList)}" th:each="arena: ${arenaList}">
-                                <div  th:unless="${arena.idBuilding}!=${building.idbuilding}">
+                                <div  th:unless="${arena.idBudynek}!=${building.idbudynek}">
                                     <p><b>Club arena</b></p>
                                     "/club/{id}/buildings"
-                                    <a th:href="@{/club/__${building.idClub.idCub}__/buildings/edit/__${building.idbuilding}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a th:href="@{/club/__${building.idClub.idClub}__/buildings/remove/__${building.idbuilding}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
-                                    <p th:text="'Name: ' + ${arena.name}"/>
-                                    <p th:text="'Capacity: '+${arena.capacity}"/>
-                                    <p th:text="'Sport discipine: '+${arena.discipline}"/>
+                                    <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/edit/__${building.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/remove/__${building.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                    <p th:text="'Name: ' + ${arena.nazwa}"/>
+                                    <p th:text="'Capacity: '+${arena.iloscMiejsc}"/>
+                                    <p th:text="'Sport discipine: '+${arena.dyscyplina}"/>
                                 </div>
                             </div>
 
 
                             <div th:unless="${#lists.isEmpty(buildingAdminList)}" th:each="admin: ${buildingAdminList}">
-                                <div  th:unless="${admin.idBuilding}!=${building.idbuilding}">
+                                <div  th:unless="${admin.idBudynek}!=${building.idbudynek}">
                                     <p><b>Club administration</b></p>
 
                                 </div>
                             </div>
                             <div th:unless="${#lists.isEmpty(trainingObjectList)}" th:each="tbuilding:${trainingObjectList}">
-                                <div  th:unless="${tbuilding.idBuilding}!=${building.idbuilding}">
+                                <div  th:unless="${tbuilding.idBudynek}!=${building.idbudynek}">
                                     <p><b>Trainig Objects</b></p>
                                     <p th:text="${tbuilding.dyscyplina}"/>
                                 </div>
                             </div>
 
                             <p><b>Address</b></p>
-                            <p th:text="'City: '+${building.city}"/>
-                            <p th:text="'Post code: '+${building.postcode}"/>
-                            <p th:text="'Street: '+${building.street}"/>
+                            <p th:text="'City: '+${building.miejscowosc}"/>
+                            <p th:text="'Post code: '+${building.kodPocztowy}"/>
+                            <p th:text="'Street: '+${building.ulicanumer}"/>
                             <br/><br/>
                         </div>
                     </div>
