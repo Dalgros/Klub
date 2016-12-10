@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Club</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div th:unless="${#lists.isEmpty(buildings)}">
+                        <div class='floating-box'  th:each="building : ${buildings}" >
+                            <h1 align="center">Buildings</h1>
+
+                            <div th:unless="${#lists.isEmpty(arenaList)}" th:each="arena: ${arenaList}">
+                                <h2 align="center">Club arena</h2>
+
+                                <h2 align="center">Club arena</h2>
+                                <p th:tet="${arena.nazwa}"/>
+                                <p th:tet="${arena.iloscMiejsc}"/>
+                                <p th:tet="${arena.dyscyplina}"/>
+
+                            </div>
+                            <div th:unless="${#lists.isEmpty(buildingAdminList)}">
+                                <h2 align="center">Club administration</h2>
+
+
+                            </div>
+                            <div th:unless="${#lists.isEmpty(trainingObjectList)}">
+                                <h2 align="center"> Trainig Objects</h2>
+
+                            </div>
+
+
+                            <p th:text="${building.miejscowosc}"/>
+                            <!--<p th:text="{building.kodPocztowy}"/>
+                            <p th:text="{building.ulicanumer}"/>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

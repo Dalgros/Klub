@@ -16,7 +16,16 @@
     <body>
         <div class="container">
             <div th:replace="header :: header"></div>
-            <p th:text="${club.nazwa}"/>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 align="center" th:text="${club.nazwa}"/>
+                    <p  align="center"><img th:attr="src=@{/club/image/__${club.idKlub}__}"/></p>
+                    <br/>
+                    <a th:href="@{/club/__${club.idKlub}__/buildings/}"><p align="center">Buildings</p></a>
+
+                </div>
+            </div>
         </div>
     </body>
 </html>
