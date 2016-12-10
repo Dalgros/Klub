@@ -16,31 +16,30 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  *
  * @author nowickik
  */
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//            .authorizeRequests()
-//                .antMatchers("/home", "/", "/club/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//            .formLogin()
-//                .loginPage("/login")
-//                .permitAll()
-//                .and()
-//            .formLogin()
-//                .successForwardUrl("/login_success")
-//                .permitAll()
-//                .and()
-//            .logout()
-//                .logoutUrl("/logout")
-//                .permitAll();
-//    }
-//
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/home", "/", "/club/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+            .formLogin()
+                .successForwardUrl("/loginSuccess")
+                .permitAll()
+                .and()
+            .logout()
+                .permitAll();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+    }
 }

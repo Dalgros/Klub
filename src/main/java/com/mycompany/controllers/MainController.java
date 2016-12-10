@@ -16,6 +16,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -39,6 +40,18 @@ public class MainController {
         factory.close();
         
         return "/home_view";
+    }
+    
+    @RequestMapping({"/login"})
+    public String loginPage(Model model) {
+        
+        return "/login_view";
+    }
+    
+    @RequestMapping({"/loginSuccess"})
+    public String loginPage2(Model model) {
+        
+        return "/login_success_view";
     }
 
 }

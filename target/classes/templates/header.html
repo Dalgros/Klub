@@ -26,22 +26,16 @@ and open the template in the editor.
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-<!--                            <li>
-                                <a th:if="${session.loggedAdmin==true}" th:href="@{/logout}" th:inline="text">[[${#httpServletRequest.remoteUser}]]
-                                    <span style="margin-left: 10px" class="glyphicon glyphicon-log-out"></span>
-                                </a> 
-                                <a th:if="${session.loggedAdmin==false}" th:href="@{/login}">
-                                    <span class="glyphicon glyphicon-log-in"></span> Log in
-                                </a>
-                            </li>-->
-
-                            <li><a href="#">LOGIN<span class="glyphicon glyphicon-search"></span></a></li>
-                            <!-- <li th:if="${#authorization.expression('!isAuthenticated()')}">
-                                 <a href="/signin" th:href="@{/signin}">Sign in</a>
-                             </li>
-                             <li th:if="${#authorization.expression('isAuthenticated()')}">
-                                 <a href="/logout" th:href="@{/logout}">Logout</a>
-                             </li>-->
+                            <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                                <a th:href="@{/login}">Sign in <span class="glyphicon glyphicon-log-in"></span></a>
+                            </li>
+                            <li th:if="${#authorization.expression('isAuthenticated()')}">
+                                <form th:action="@{/logout}" method="post">
+                                    <input type="submit" class="btn btn-link" value="Sign Out"/>
+                                    <a><span style="margin-left: 10px" class="glyphicon glyphicon-log-out"></span></a>
+                                </form>
+<!--                                <a th:action="@{/logout}" method="post" >Sign out <span style="margin-left: 10px" class="glyphicon glyphicon-log-out"></span></a>-->
+                            </li>
                         </ul>
                     </div>
                 </div>
