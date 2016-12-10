@@ -5,8 +5,7 @@
  */
 package com.mycompany.controllers;
 
-import com.mycompany.model.Building;
-import com.mycompany.model.Club;
+import com.mycompany.model.Budynek;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -41,12 +40,12 @@ public class BuildingController {
         Session session = factory.openSession();
         Query query = session.createQuery("from Budynek where Id_Klub=:id");
         query.setParameter("id", idClub);
-        List<Building> buildingsList = query.getResultList();
+        List<Budynek> buildingsList = query.getResultList();
         List buildingAdminList = new ArrayList();
         List arenaList = new ArrayList();
         List trainingObjectList = new ArrayList();
 
-        for (Building b : buildingsList) {
+        for (Budynek b : buildingsList) {
             log.info("iteracja");
             if (b.getBudynekAdministracyjny() != null) {
                 buildingAdminList.add(b.getBudynekAdministracyjny());
