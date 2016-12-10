@@ -22,7 +22,24 @@
                     <h1 align="center" th:text="${club.nazwa}"/>
                     <p  align="center"><img th:attr="src=@{/club/image/__${club.idKlub}__}"/></p>
                     <br/>
-                    <a th:href="@{/club/__${club.idKlub}__/buildings/}"><p align="center">Buildings</p></a>
+                    <br/>
+                    <br/>
+
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-3">
+                        <a th:href="@{/club/__${club.idKlub}__/boardmembers/}"><p align="center">
+                                Board members<br/><img src="https://cdn1.iconfinder.com/data/icons/freeline/32/account_friend_human_man_member_person_profile_user_users-48.png"/></p></a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-3">
+                        <a th:href="@{/club/__${club.idKlub}__/buildings/}"><p align="center">
+                                Buildings<br/><img src="https://cdn4.iconfinder.com/data/icons/miu/24/house-home-real_estate-property-glyph-48.png"/></p></a>
+                    </div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-3">
+                        <a th:href="@{/club/__${club.idKlub}__/sections/}"><p align="center">
+                                Sections<br/><img src="https://cdn1.iconfinder.com/data/icons/dream-icons-2/160/cup-48.png"/></p></a>
+                    </div> 
 
                 </div>
             </div>
