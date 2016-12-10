@@ -19,12 +19,14 @@
         <div class="container">
             <div th:replace="header :: header"></div>
             <h1 align="center">CLUB LIST</h1>
+            <div align="center"> <a th:href="@{/club/create}">Add new club<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
             <div th:unless="${#lists.isEmpty(clubList)}">
                 <div class='floating-box'  th:each="club : ${clubList}" >
                     <a th:href="@{/club/__${club.idKlub}__}"> 
                         <img th:attr="src=@{/club/image/__${club.idKlub}__}" />
-
                         <p th:text="${club.nazwa}"/>
+                         <a th:href="@{/club/__${club.idKlub}__/edit}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                         <a th:href="@{/club/__${club.idKlub}__/remove}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                     </a>
                 </div>
             </div>

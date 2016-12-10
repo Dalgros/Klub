@@ -16,10 +16,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.sql.SQLException;
-import java.util.List;
 import javax.ejb.ApplicationException;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
@@ -32,14 +30,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -65,6 +60,9 @@ public class ClubController {
         Klub club = session.find(Klub.class, Integer.parseInt(id));
         model.addAttribute("club", club);
 
+        session.close();
+        factory.close();
+
         return "/club/show_club_view";
     }
 
@@ -79,6 +77,9 @@ public class ClubController {
         Session session = factory.openSession();
 
         Klub club = session.find(Klub.class, Integer.parseInt(id));
+
+        session.close();
+        factory.close();
 
         return club.getByteLogo();
     }
@@ -100,9 +101,105 @@ public class ClubController {
 
         byte[] bytes;
         bytes = clubForm.getLogo().getBytes();
+        bytes = LogoConvertion(bytes);
+
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Klub club = new Klub();
+        club.setNazwa(clubForm.getName());
+
+        LobCreator lcreator = Hibernate.getLobCreator(session);
+        Blob blob = (Blob) lcreator.createBlob(bytes);
+        club.setLogo(blob);
+
+        session.persist(club);
+        t.commit();
+        session.close();
+        factory.close();
+
+        model.addAttribute("club", club);
+        return new ModelAndView("redirect:/club/" + club.getIdKlub());
+
+    }
+
+    @GetMapping("/{id}/edit")
+    public String editClub(ClubForm clubForm, Model model, @PathVariable("id") String id) {
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+
+        //creating session object  
+        Session session = factory.openSession();
+
+        Klub club = session.find(Klub.class, Integer.parseInt(id));
+        model.addAttribute("club", club);
+
+        session.close();
+        factory.close();
+        return "/club/edit_club_view";
+    }
+
+    @PostMapping("/{id}/edit")
+    @ResponseBody
+    public ModelAndView editClub(@Valid ClubForm clubForm, BindingResult result, Model model, @PathVariable("id") String id) throws IOException {
+        if (result.hasErrors()) {
+            return new ModelAndView("redirect:/club/" + id + "/edit");
+        }
+
+        byte[] bytes;
+        bytes = clubForm.getLogo().getBytes();
+        bytes = LogoConvertion(bytes);
+
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Klub club = session.find(Klub.class, Integer.parseInt(id));
+        club.setNazwa(clubForm.getName());
+
+        LobCreator lcreator = Hibernate.getLobCreator(session);
+        Blob blob = (Blob) lcreator.createBlob(bytes);
+        club.setLogo(blob);
+
+        session.update(club);
+        t.commit();
+        session.close();
+        factory.close();
+
+        model.addAttribute("club", club);
+        return new ModelAndView("redirect:/club/" + club.getIdKlub());
+
+    }
+    
+    @GetMapping("/{id}/remove")
+    public ModelAndView removeClub(Model model, @PathVariable("id") String id) {
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+
+        //creating session object  
+        Session session = factory.openSession();
+
+        Transaction t = session.beginTransaction();
+        
+        Klub club = session.find(Klub.class, Integer.parseInt(id));
+        session.remove(club);
+        t.commit();
+        
+        session.close();
+        factory.close();
+        return new ModelAndView("redirect:/home");
+    }
+
+    private byte[] LogoConvertion(byte[] bytes) {
         int width = 200;
         int height = 200;
-
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
         try {
             BufferedImage img = ImageIO.read(in);
@@ -124,27 +221,7 @@ public class ClubController {
         } catch (IOException e) {
             log.error("File convertion error");
         }
-
-        Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        SessionFactory factory = cfg.buildSessionFactory();
-        Session session = factory.openSession();
-        Transaction t = session.beginTransaction();
-
-        Klub club = new Klub();
-        club.setNazwa(clubForm.getName());
-
-        LobCreator lcreator = Hibernate.getLobCreator(session);
-        Blob blob = (Blob) lcreator.createBlob(bytes);
-        club.setLogo(blob);
-
-        session.persist(club);
-        t.commit();
-        session.close();
-
-        model.addAttribute("club", club);
-        return new ModelAndView("redirect:/club/" + club.getIdKlub());
-
+        return bytes;
     }
 
     private static class ApplicationExceptionImpl implements ApplicationException {

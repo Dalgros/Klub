@@ -11,10 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.mycompany.model.Klub;
 import com.mycompany.model.Sekcja;
-import com.mycompany.model.Sezon;
-import java.sql.Blob;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
@@ -64,8 +61,10 @@ public class Startup
         
      
         t.commit();//transaction is committed  
+        session.disconnect();
         
         session.close();
+        
 
     }
 
