@@ -5,16 +5,15 @@
  */
 package com.mycompany.startup;
 
-import com.mycompany.model.Building;
-import com.mycompany.model.AdministrationBuilding;
+import com.mycompany.model.BudynekAdministracyjny;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import com.mycompany.model.Club;
-import com.mycompany.model.TrainingObject;
-import com.mycompany.model.Subdivision;
-import com.mycompany.model.Arena;
+import com.mycompany.model.Klub;
+import com.mycompany.model.ObiektTreningowy;
+import com.mycompany.model.Sekcja;
+import com.mycompany.model.Stadion;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,12 +50,12 @@ public class Startup {
         //creating transaction object  
         Transaction t = session.beginTransaction();
 
-        Club klub = new Club();
+        Klub klub = new Klub();
         klub.setNazwa("Jaga");
         klub.setLogo("src/main/resources/static/images/jaga.jpg", session);
         session.persist(klub);
 
-        Subdivision sekcja = new Subdivision();
+        Sekcja sekcja = new Sekcja();
         sekcja.setDyscyplina("Żużel");
         sekcja.setPlec("x");
         sekcja.setIdKlub(klub);
@@ -76,7 +75,7 @@ public class Startup {
         b1.setIdKlub(klub);
         session.persist(b1);
 
-        TrainingObject bTrening = new TrainingObject(b1.getIdbudynek());
+        ObiektTreningowy bTrening = new ObiektTreningowy(b1.getIdbudynek());
         bTrening.setBudynek(b1);
         bTrening.setDyscyplina("pici poolo");
         session.persist(bTrening);
@@ -88,12 +87,12 @@ public class Startup {
         b2.setIdKlub(klub);
         session.persist(b2);
 
-        AdministrationBuilding badmin = new AdministrationBuilding(b2.getIdbudynek());
+        BudynekAdministracyjny badmin = new BudynekAdministracyjny(b2.getIdbudynek());
         badmin.setBudynek(b2);
 
         session.persist(badmin);
 
-        Arena stadion = new Arena(b.getIdbudynek());
+        Stadion stadion = new Stadion(b.getIdbudynek());
         stadion.setNazwa("Santiago");
         stadion.setIloscMiejsc(123);
         stadion.setDyscyplina("picipolo");
