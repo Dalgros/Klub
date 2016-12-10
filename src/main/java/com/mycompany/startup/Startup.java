@@ -5,6 +5,7 @@
  */
 package com.mycompany.startup;
 
+import com.mycompany.model.Budynek;
 import com.mycompany.model.BudynekAdministracyjny;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -61,14 +62,14 @@ public class Startup {
         sekcja.setIdKlub(klub);
         session.persist(sekcja);
 
-        Building b = new Building();
+        Budynek b = new Budynek();
         b.setKodPocztowy("Kod");
         b.setUlicanumer("ulica");
         b.setMiejscowosc("DD");
         b.setIdKlub(klub);
         session.persist(b);
 
-        Building b1 = new Building();
+        Budynek b1 = new Budynek();
         b1.setKodPocztowy("Kodd");
         b1.setUlicanumer("ulicaa");
         b1.setMiejscowosc("DDD");
@@ -80,7 +81,7 @@ public class Startup {
         bTrening.setDyscyplina("pici poolo");
         session.persist(bTrening);
 
-        Building b2 = new Building();
+        Budynek b2 = new Budynek();
         b2.setKodPocztowy("Koddd");
         b2.setUlicanumer("ulicaaa");
         b2.setMiejscowosc("DDDD");
