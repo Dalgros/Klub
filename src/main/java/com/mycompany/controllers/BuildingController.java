@@ -139,7 +139,7 @@ public class BuildingController {
 
     }
 
-    @GetMapping("/remove//{idBuilding}")
+    @GetMapping("/remove/{idBuilding}")
     public ModelAndView removeClub(Model model, @PathVariable("idClub") String idClub, @PathVariable("idBuilding") String idBuilding) {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");

@@ -61,7 +61,13 @@ public class Startup {
         sekcja.setPlec("x");
         sekcja.setIdKlub(klub);
         session.persist(sekcja);
+        
+        Sekcja sekcja1= new Sekcja();
+        sekcja1.setDyscyplina("picipolo");
+        sekcja1.setPlec("p");
 
+        sekcja1.setIdKlub(klub);
+        session.persist(sekcja1);
         Budynek b = new Budynek();
         b.setKodPocztowy("Kod");
         b.setUlicanumer("ulica");
