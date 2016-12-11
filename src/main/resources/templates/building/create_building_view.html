@@ -2,7 +2,7 @@
 <html 
     xmlns:th="http://www.thymeleaf.org" >
     <head>
-        <title>Edit Buildings</title>
+        <title>Create Club</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -11,15 +11,42 @@
         <link rel="stylesheet" th:href="@{/css/style.css}"
               href="../../css/style.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
     </head>
     <body>
         <div class="container">
             <div th:replace="header :: header"></div>
+
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <h1 align="center">Edit building</h1>
-                    <form action="#" method="post" th:action="@{/club/__${building.idKlub.idKlub}__/buildings/edit/__${building.idbudynek}__}" th:object="${buildingForm}">
+                    <h1 align="center">Create building</h1>
+                    <form action="">
+                        <label th:text="Arena"/>
+                        <input type="radio" name="type" onclick="choose()" id="arenaRadio" />
+                        <label th:text="Admin building"/>
+                        <input type="radio" name="type" onclick="choose()" id="adminRadio" />
+                        <label th:text="Training Object"/>
+                        <input type="radio" name="type" onclick="choose()" id="objectTrainingRadio" />
+                        <script>
+
+                            function choose() {
+                                if (document.getElementById('arenaRadio').checked) {
+                                    document.getElementById('trainingObject').style.visibility = 'visible';
+                                    document.getElementById('Arena').style.visibility = 'visible';
+                                } else if (document.getElementById('objectTrainingRadio').checked) {
+                                    document.getElementById('trainingObject').style.visibility = 'visible';
+                                    document.getElementById('Arena').style.visibility = 'hidden';
+                                } else if (document.getElementById('adminRadio').checked) {
+                                    document.getElementById('trainingObject').style.visibility = 'hidden';
+                                    document.getElementById('Arena').style.visibility = 'hidden';
+
+                                }
+                            }
+                        </script>
+
+                    </form>
+                    <form action="#" method="post" th:action="@{/club/__${Club}__/buildings/create/}" th:object="${buildingForm}">
                         <div class="form-group">
                             <label>Building Addres</label> 
                             <input type="text" th:field="*{city}" class="form-control" placeholder="Enter new city"/>
@@ -30,7 +57,14 @@
                         <div class="form-group">
                             <input type="text" th:field="*{street}" class="form-control" placeholder="Enter new street and number"/>
                         </div>
-                        <div th:if="${bArena}!=null" >
+                        <div id="trainingObject" >
+
+                            <div class="form-group" >
+                                <label>Discipline</label> 
+                                <input type="text" th:field="*{discipline}" class="form-control" placeholder="Enter new discipline"/>
+                            </div>
+                        </div>
+                        <div id="Arena">
                             <div class="form-group" >
                                 <label>Stadion name</label> 
                                 <input type="text" th:field="*{name}" class="form-control" placeholder="Enter new stadion name"/>
@@ -39,18 +73,8 @@
                                 <label>Stadion capacity</label> 
                                 <input type="text" th:field="*{capacity}" class="form-control" placeholder="Enter new capacity"/>
                             </div>
-                            <div class="form-group" >
-                                <label>Discipline</label> 
-                                <input type="text" th:field="*{discipline}" class="form-control" placeholder="Enter new discipline"/>
-                            </div>
                         </div>
-                        <div th:if="${bTrainingObject}!=null" >
 
-                            <div class="form-group" >
-                                <label>Discipline</label> 
-                                <input type="text" th:field="*{discipline}" class="form-control" placeholder="Enter new discipline"/>
-                            </div>
-                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
