@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Edit board member</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+             <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 align="center">Edit board member</h1>
+                    <form action="#" method="post" th:action="@{/club/__${club}__/boardmembers/edit/__${member.idCzlonek}__}" th:object="${boardMemberForm}">
+                        <div th:if="${#fields.hasErrors('global')}">
+                            <div th:errors="*{global}"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>First name:</label> 
+                            <input type="text" th:field="*{firstName}" class="form-control" placeholder="Enter first name"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">First name error</div>
+
+                        <div class="form-group">
+                            <label>Last name:</label> 
+                            <input type="text" th:field="*{lastName}" class="form-control" placeholder="Enter last name"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name error</div>
+
+                        <div class="form-group">
+                            <label>Job position:</label> 
+                            <input type="text" th:field="*{position}" class="form-control" placeholder="Enter job position"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('position')}" th:errors="*{position}">position error</div>
+                        
+                        <div class="form-group">
+                            <label>Salary:</label> 
+                            <input type="number" th:field="*{salary}" class="form-control" placeholder="Enter salary"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">salary error</div>
+                        
+                        <div class="form-group">
+                            <label>Percent of the club's shares:</label> 
+                            <input type="number" min="0" max="100" th:field="*{percent}" class="form-control" placeholder="Enter percent of the club's shares"/>
+                        </div>
+                        <div class="alert alert-warning"
+                             th:if="${#fields.hasErrors('percent')}" th:errors="*{percent}">Percent error</div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
