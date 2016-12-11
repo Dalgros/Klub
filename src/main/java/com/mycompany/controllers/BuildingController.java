@@ -68,6 +68,7 @@ public class BuildingController {
             }
         }
         session.close();
+        model.addAttribute("club",idClub);
         model.addAttribute("buildingAdminList", buildingAdminList);
         model.addAttribute("arenaList", arenaList);
         model.addAttribute("buildings", buildingsList);

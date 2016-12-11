@@ -55,6 +55,15 @@ footer {
     color: black!important;
 
 }
+.floating-box-building {
+    display: inline-block;
+
+    margin: 10px;
+    text-align: center;
+    color: black;
+    vertical-align: top; 
+
+}
 a
 {
     color: black !important;
