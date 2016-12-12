@@ -42,7 +42,7 @@ public class Druzyna implements Serializable {
     private Sekcja idSekcja;
     
     @JoinColumn(name = "id_liga", referencedColumnName = "Id_Liga")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Liga idLiga;
 
     public Druzyna() {

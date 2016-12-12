@@ -1,0 +1,57 @@
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Show Teams</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 align="center">Teams</h1>
+                    <p align="center"><img th:attr="src=@{/club/image/__${Club}__}" /></p>
+                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                        <div align="center"> <a th:href="@{/club/__${Club}__/sections/__${Section}__/teams/create}">Add new team<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
+                    </div>
+                    <div class="panel-group" th:unless="${#lists.isEmpty(teamList)}">
+
+                        <div class="panel-heading" th:each="team : ${teamList}" >
+
+                            <label th:text="'Team'"/>
+                            <br/>
+                            <label th:text="'Team name:'+${team.nazwa}"/>
+                            <br/>
+                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
+                                <br/>
+                                Show team statistics
+                            </a>
+                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
+                                <br/>
+                                Show team members
+                            </a>
+                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
+                                <br/>
+                                Show team treiner staff
+                            </a>
+                            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/remove/__${team.idDruzyna}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                            </div>
+                            <br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

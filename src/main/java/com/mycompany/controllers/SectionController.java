@@ -36,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class SectionController {
 
-    Logger log = Logger.getLogger(BuildingController.class);
+    Logger log = Logger.getLogger(SectionController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String sectionPage(@PathVariable("idClub") String idClub, Model model) {

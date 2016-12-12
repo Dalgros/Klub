@@ -7,11 +7,13 @@ package com.mycompany.startup;
 
 import com.mycompany.model.Budynek;
 import com.mycompany.model.BudynekAdministracyjny;
+import com.mycompany.model.Druzyna;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import com.mycompany.model.Klub;
+import com.mycompany.model.Liga;
 import com.mycompany.model.ObiektTreningowy;
 import com.mycompany.model.Sekcja;
 import com.mycompany.model.Stadion;
@@ -87,25 +89,23 @@ public class Startup {
         bTrening.setDyscyplina("pici poolo");
         session.persist(bTrening);
 
-        Budynek b2 = new Budynek();
-        b2.setKodPocztowy("Koddd");
-        b2.setUlicanumer("ulicaaa");
-        b2.setMiejscowosc("DDDD");
-        b2.setIdKlub(klub);
-        session.persist(b2);
+        
+        Liga league=new Liga();
+        league.setKraj("POLSKA");
+        league.setNazwa("Ogorowa");
+        
+        session.persist(league);
+        
+        
+        Druzyna team=new Druzyna();
+        team.setNazwa("toMy");
+        team.setIdSekcja(sekcja1);
+        team.setIdLiga(league);
+        
+        session.persist(team);
 
-        BudynekAdministracyjny badmin = new BudynekAdministracyjny(b2.getIdbudynek());
-        badmin.setBudynek(b2);
-
-        session.persist(badmin);
-
-        Stadion stadion = new Stadion(b.getIdbudynek());
-        stadion.setNazwa("Santiago");
-        stadion.setIloscMiejsc(123);
-        stadion.setDyscyplina("picipolo");
-        stadion.setBudynek(b);
-        //stadion.setBudynek(b);
-        session.persist(stadion);
+        
+        
         t.commit();//transaction is committed  
         session.disconnect();
 
