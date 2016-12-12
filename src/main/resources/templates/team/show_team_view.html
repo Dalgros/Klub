@@ -27,7 +27,7 @@
 
                         <div class="panel-heading" th:each="team : ${teamList}" >
 
-                            <label th:text="'Team'"/>
+                            <label th:text="'Team :'"/>
                             <br/>
                             <label th:text="'Team name:'+${team.nazwa}"/>
                             <br/>
@@ -44,7 +44,7 @@
                                 Show team treiner staff
                             </a>
                             <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/edit/__${team.idDruzyna}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
                                 <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/remove/__${team.idDruzyna}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                             </div>
                             <br/>

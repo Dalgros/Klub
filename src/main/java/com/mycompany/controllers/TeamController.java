@@ -98,19 +98,43 @@ public class TeamController {
         List<Liga> league = query.getResultList();
         if (!league.isEmpty()) {
             team.setIdLiga(league.get(0));
-        }
-        else{
-            Liga newLeague =new Liga();
+        } else {
+            Liga newLeague = new Liga();
             newLeague.setKraj("none");
             newLeague.setNazwa("default");
             session.persist(newLeague);
             team.setIdLiga(newLeague);
         }
-        
+
         session.persist(team);
         t.commit();
         session.close();
         factory.close();
+        return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/");
+    }
+
+    @GetMapping("/edit/{idTeam}")
+    public String editTeam(TeamForm teamForm, Model model, @PathVariable("idTeam") String idTeam, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection) {
+        model.addAttribute("Section", idSection);
+        model.addAttribute("Club", idClub);
+        model.addAttribute("Team", idTeam);
+        return "/team/edit_team_view";
+    }
+
+    @RequestMapping(value = "/edit/{idTeam}", method = RequestMethod.POST)
+    public ModelAndView editteam(@Valid TeamForm teamForm, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, @PathVariable("idTeam") String idTeam, Model model) {
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        Druzyna team = session.find(Druzyna.class, Integer.parseInt(idTeam));
+        team.setNazwa(teamForm.getName());
+        session.update(team);
+
+        t.commit();
+        session.close();
         return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/");
     }
 
