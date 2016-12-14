@@ -17,9 +17,16 @@ import com.mycompany.model.Liga;
 import com.mycompany.model.ObiektTreningowy;
 import com.mycompany.model.Sekcja;
 import com.mycompany.model.Stadion;
+import com.mycompany.model.Zawodnik;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,7 +45,7 @@ public class Startup {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws FileNotFoundException, SQLException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, SQLException, IOException, ParseException {
         SpringApplication.run(Startup.class, args);
         logger.info("Application started");
 
@@ -63,8 +70,8 @@ public class Startup {
         sekcja.setPlec("x");
         sekcja.setIdKlub(klub);
         session.persist(sekcja);
-        
-        Sekcja sekcja1= new Sekcja();
+
+        Sekcja sekcja1 = new Sekcja();
         sekcja1.setDyscyplina("picipolo");
         sekcja1.setPlec("p");
 
@@ -89,23 +96,32 @@ public class Startup {
         bTrening.setDyscyplina("pici poolo");
         session.persist(bTrening);
 
-        
-        Liga league=new Liga();
+        Liga league = new Liga();
         league.setKraj("POLSKA");
         league.setNazwa("Ogorowa");
-        
+
         session.persist(league);
-        
-        
-        Druzyna team=new Druzyna();
+
+        Druzyna team = new Druzyna();
         team.setNazwa("toMy");
         team.setIdSekcja(sekcja1);
         team.setIdLiga(league);
-        
+
         session.persist(team);
 
-        
-        
+        Zawodnik z = new Zawodnik();
+
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date myDate = formatter.parse("1995-02-12");
+        java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+        z.setDataUrodzenia(sqlDate);
+        z.setImie("imie");
+        z.setNazwisko("nazwisko");
+        z.setWaga(70);
+        z.setWzrost(180);
+        z.setIdDruzyna(team);
+
         t.commit();//transaction is committed  
         session.disconnect();
 

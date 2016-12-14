@@ -81,7 +81,7 @@ public class TeamController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView createsection(@Valid TeamForm teamForm, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, Model model) {
+    public ModelAndView createteam(@Valid TeamForm teamForm, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, Model model) {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
