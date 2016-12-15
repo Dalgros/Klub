@@ -32,7 +32,6 @@
                                 <li class="list-group-item">
                                     <a th:text="${team.nazwa}"/>
                                     <div align="right" >
-                                        <a th:href="@{/leagues/show/__${league.idLiga}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-stats"></span> </a>
                                         <a th:href="@{/club/__${team.idSekcja.idKlub.idKlub}__/sections/__${team.idSekcja.idSekcja}__/teams/__${team.idDruzyna}__/players/}"><img style="margin-left: 10px" src="https://cdn4.iconfinder.com/data/icons/sports-vol-3/48/122-20.png"/></a> 
                                         <a th:href="@{/leagues/show/__${league.idLiga}__}"><img style="margin-left: 10px" src="https://cdn3.iconfinder.com/data/icons/general-icons-set-1/100/65_member-20.png"/> </a> 
                                     </div>

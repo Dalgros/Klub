@@ -23,27 +23,35 @@
                     <div th:if="${#authorization.expression('isAuthenticated()')}">
                         <div align="center"> <a th:href="@{/club/__${Club}__/sections/__${Section}__/teams/__${Team}__/players/create}">Add new player<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
 
                     <div th:unless="${#lists.isEmpty(playersList)}">
-                        <ul class="list-group">
-                            <div  th:each="player : ${playersList}" >                             
-                                <li class="list-group-item">
-                                    <a   th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${player.idZawodnik}__/}">
-                                    <span th:text="' Player first name: '+${player.Imie} "/>
-                                    <span th:text="' Player last name: '+${player.Nazwisko} "/>
-                                    <span th:text="' Player birthdate: '+${player.dataUrodzenia} "/>
-                                    <span th:text="' Player height: '+${player.wzrost} "/>
-                                    <span th:text="' Player weight: '+${player.waga} "/>
-                                    </a>
-                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
-                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/edit/__${player.idZawodnik}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/remove/__${player.idZawodnik}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                        <div class="panel-group">
+                            <div  th:each="player : ${playersList}" > 
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" >
+                                        <a   th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${player.idZawodnik}__/}">
+                                            <p th:text="${player.imie} + ' ' + ${player.nazwisko}"/>
+                                            <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
+                                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/edit/__${player.idZawodnik}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/remove/__${player.idZawodnik}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                            </div>
+                                        </a>
                                     </div>
-
-                                </li>
+                                    <div class="panel-body" >
+                                        <a   th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${player.idZawodnik}__/}">
+                                            <p th:text="'Birthdate:   '+${player.dataUrodzenia} "/>
+                                            <br/>
+                                            <p th:text="'Height:   '+${player.wzrost} + 'cm'"/>
+                                            <br/>
+                                            <p th:text="'Weight:   '+${player.waga} + 'kg'"/>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </ul>
-
+                        </div>
                     </div>
                 </div>
             </div>
