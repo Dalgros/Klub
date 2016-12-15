@@ -81,7 +81,6 @@ public class TeamController {
          Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
-
         //creating session object  
         Session session = factory.openSession();
         List<Liga> leagueList = session.createCriteria(Liga.class).list();
