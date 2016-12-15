@@ -44,5 +44,5 @@ ALTER TABLE zawodnik_statystyki ADD FOREIGN KEY(id_sezon) REFERENCES sezon(id_se
 ALTER TABLE druzyna_statystyki ADD PRIMARY KEY(id_druzyna,id_sezon);
 ALTER TABLE zawodnik_statystyki ADD PRIMARY KEY(id_zawodnik,id_sezon);
 
-CREATE TABLE czlonek_sztabu(id_czlonek INT AUTO_INCREMENT PRIMARY KEY, id_druzyna INT,imie VARCHAR(20), nazwisko VARCHAR(50), stanowisko VARCHAR(20),poczatek_kontraktu DATE, koniec_kontraktu DATE,pensja INT);
+CREATE TABLE czlonek_sztabu(id_czlonek INT AUTO_INCREMENT PRIMARY KEY, id_druzyna INT,imie VARCHAR(20), nazwisko VARCHAR(50), stanowisko VARCHAR(20),pensja INT);
 ALTER TABLE czlonek_sztabu ADD FOREIGN KEY(id_druzyna) REFERENCES druzyna(id_druzyna);

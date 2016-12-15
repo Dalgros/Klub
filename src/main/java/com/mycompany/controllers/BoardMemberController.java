@@ -39,7 +39,7 @@ public class BoardMemberController {
     Logger log = Logger.getLogger(BoardMemberController.class);
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String buildingPage(@PathVariable("idClub") String idClub, Model model) {
+    public String boardMemberPage(@PathVariable("idClub") String idClub, Model model) {
 
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
@@ -77,15 +77,15 @@ public class BoardMemberController {
 
         Klub klub = session.find(Klub.class, Integer.parseInt(idClub));
         
-        CzlonekZarzadu czlonek = new CzlonekZarzadu();
-        czlonek.setImie(boardMember.getFirstName());
-        czlonek.setNazwisko(boardMember.getLastName());
-        czlonek.setStanowisko(boardMember.getPosition());
-        czlonek.setPensja(boardMember.getSalary());
-        czlonek.setProcentUdzialow(Float.parseFloat(String.valueOf(boardMember.getPercent())));
-        czlonek.setIdKlub(klub);
+        CzlonekZarzadu member = new CzlonekZarzadu();
+        member.setImie(boardMember.getFirstName());
+        member.setNazwisko(boardMember.getLastName());
+        member.setStanowisko(boardMember.getPosition());
+        member.setPensja(boardMember.getSalary());
+        member.setProcentUdzialow(Float.parseFloat(String.valueOf(boardMember.getPercent())));
+        member.setIdKlub(klub);
         
-        session.persist(czlonek);
+        session.persist(member);
         t.commit();
 
         session.close();
@@ -98,7 +98,7 @@ public class BoardMemberController {
     }
     
     @GetMapping("/edit/{idMember}")
-    public String editClub(BoardMemberForm boardMember, Model model, @PathVariable("idClub") String idClub, @PathVariable("idMember") String idMember) {
+    public String editBoardMember(BoardMemberForm boardMember, Model model, @PathVariable("idClub") String idClub, @PathVariable("idMember") String idMember) {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
@@ -106,10 +106,10 @@ public class BoardMemberController {
         //creating session object  
         Session session = factory.openSession();
 
-        CzlonekZarzadu czlonek = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember));
+        CzlonekZarzadu member = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember));
 
         model.addAttribute("club", idClub);
-        model.addAttribute("member", czlonek);
+        model.addAttribute("member", member);
         
         session.close();
         factory.close();
@@ -118,7 +118,7 @@ public class BoardMemberController {
 
     @PostMapping("/edit/{idMember}")
     @ResponseBody
-    public ModelAndView editClub(@Valid BoardMemberForm boardMember, BindingResult result, Model model, @PathVariable("idClub") String idClub, @PathVariable("idMember") String idMember) throws IOException {
+    public ModelAndView editBoardMember(@Valid BoardMemberForm boardMember, BindingResult result, Model model, @PathVariable("idClub") String idClub, @PathVariable("idMember") String idMember) throws IOException {
         if (result.hasErrors()) {
             return new ModelAndView("redirect:/club/" + idClub + "/boardmembers/edit/" + idMember);
         }
@@ -129,14 +129,14 @@ public class BoardMemberController {
         Session session = factory.openSession();
         Transaction t = session.beginTransaction();
 
-        CzlonekZarzadu czlonek = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember));
-        czlonek.setImie(boardMember.getFirstName());
-        czlonek.setNazwisko(boardMember.getLastName());
-        czlonek.setStanowisko(boardMember.getPosition());
-        czlonek.setPensja(boardMember.getSalary());
-        czlonek.setProcentUdzialow(Float.parseFloat(String.valueOf(boardMember.getPercent())));
+        CzlonekZarzadu member = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember));
+        member.setImie(boardMember.getFirstName());
+        member.setNazwisko(boardMember.getLastName());
+        member.setStanowisko(boardMember.getPosition());
+        member.setPensja(boardMember.getSalary());
+        member.setProcentUdzialow(Float.parseFloat(String.valueOf(boardMember.getPercent())));
 
-        session.update(czlonek);
+        session.update(member);
         t.commit();
         session.close();
         factory.close();
@@ -146,7 +146,7 @@ public class BoardMemberController {
     }
     
     @GetMapping("/remove/{idMember}")
-    public ModelAndView removeClub(Model model, @PathVariable("idClub") String idClub,@PathVariable("idMember") String idMember) {
+    public ModelAndView removeBoardMember(Model model, @PathVariable("idClub") String idClub,@PathVariable("idMember") String idMember) {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
         SessionFactory factory = cfg.buildSessionFactory();
@@ -156,8 +156,8 @@ public class BoardMemberController {
 
         Transaction t = session.beginTransaction();
         
-        CzlonekZarzadu czlonek = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember) );
-        session.remove(czlonek);
+        CzlonekZarzadu member = session.find(CzlonekZarzadu.class, Integer.parseInt(idMember) );
+        session.remove(member);
         t.commit();
         
         session.close();

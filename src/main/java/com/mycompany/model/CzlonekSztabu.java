@@ -35,14 +35,6 @@ public class CzlonekSztabu implements Serializable {
     @Column(name = "stanowisko")
     private String stanowisko;
     
-    @Column(name = "poczatek_kontraktu")
-    @Temporal(TemporalType.DATE)
-    private Date poczatekKontraktu;
-    
-    @Column(name = "koniec_kontraktu")
-    @Temporal(TemporalType.DATE)
-    private Date koniecKontraktu;
-    
     @Column(name = "pensja")
     private Integer pensja;
     
@@ -83,22 +75,6 @@ public class CzlonekSztabu implements Serializable {
 
     public void setStanowisko(String stanowisko) {
         this.stanowisko = stanowisko;
-    }
-
-    public Date getPoczatekKontraktu() {
-        return poczatekKontraktu;
-    }
-
-    public void setPoczatekKontraktu(Date poczatekKontraktu) {
-        this.poczatekKontraktu = poczatekKontraktu;
-    }
-
-    public Date getKoniecKontraktu() {
-        return koniecKontraktu;
-    }
-
-    public void setKoniecKontraktu(Date koniecKontraktu) {
-        this.koniecKontraktu = koniecKontraktu;
     }
 
     public Integer getPensja() {
