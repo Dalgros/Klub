@@ -160,25 +160,6 @@ public class PlayerController {
 
     }
 
-    @RequestMapping(value = "/{idPlayer}/", method = RequestMethod.GET)
-    public String showPlayer(@PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, @PathVariable("idTeam") String idTeam, @PathVariable("idPlayer") String idPlayer, Model model) {
-
-        Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
-        SessionFactory factory = cfg.buildSessionFactory();
-        Session session = factory.openSession();
-        Query query = session.createQuery("from ZawodnikStatystyki where id_zawodnik=:id");
-        query.setParameter("id", idPlayer);
-        List<ZawodnikStatystyki> statisticsList = query.getResultList();
-        System.out.println(statisticsList.size());
-        Zawodnik player = session.find(Zawodnik.class, Integer.parseInt(idPlayer));
-        model.addAttribute("statisticsList", statisticsList);
-        model.addAttribute("Club", idClub);
-        model.addAttribute("Team", idTeam);
-        model.addAttribute("Section", idSection);
-        model.addAttribute("Player", player);      
-        session.close();
-        return "player/show_concreteplayer_view";
-    }
+    
 
 }
