@@ -32,8 +32,9 @@
                             <br/>
                             <label th:text="'Sex: '+${section.plec}"/>
                             <br/>
-                            <a th:href="@{/club/__${Club}__/sections/__${section.idSekcja}__/teams/}">
-                               Show teams
+                            
+                            <a th:href="@{/club/__${Club}__/sections/__${section.idSekcja}__/teams/}">       
+                                    Show teams
                             </a>
                             <div th:if="${#authorization.expression('isAuthenticated()')}">
                                 <a th:href="@{/club/__${Club}__/sections/edit/__${section.idSekcja}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>

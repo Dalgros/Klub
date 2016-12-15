@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>League</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h1 align="center" th:text="${league.nazwa}"/>
+                    <p align="center"><img src="https://cdn2.iconfinder.com/data/icons/app-types-in-grey/128/app_type_sport_512px_GREY.png"/></p>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div th:unless="${#lists.isEmpty(teamList)}">
+                        <ul class="list-group">
+                            <div th:each="team : ${teamList}" >
+                                <li class="list-group-item">
+                                    <a th:href="@{/club/__${team.idSekcja.idKlub.idKlub}__/sections/__${team.idSekcja.idSekcja}__/teams/}"> 
+                                        <p th:text="${team.nazwa}"/>
+                                    </a>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

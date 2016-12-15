@@ -77,6 +77,18 @@ public class TeamController {
     public String createTeam(TeamForm teamForm, Model model, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection) {
         model.addAttribute("Section", idSection);
         model.addAttribute("Club", idClub);
+        
+         Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+
+        //creating session object  
+        Session session = factory.openSession();
+        List<Liga> leagueList = session.createCriteria(Liga.class).list();
+               
+        model.addAttribute("leagueList", leagueList);
+
+        session.close();
         return "/team/create_team_view";
     }
 
