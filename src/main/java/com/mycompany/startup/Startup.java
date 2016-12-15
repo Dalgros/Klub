@@ -16,8 +16,11 @@ import com.mycompany.model.Klub;
 import com.mycompany.model.Liga;
 import com.mycompany.model.ObiektTreningowy;
 import com.mycompany.model.Sekcja;
+import com.mycompany.model.Sezon;
 import com.mycompany.model.Stadion;
 import com.mycompany.model.Zawodnik;
+import com.mycompany.model.ZawodnikStatystyki;
+import com.mycompany.model.ZawodnikStatystykiPK;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -111,7 +114,6 @@ public class Startup {
 
         Zawodnik z = new Zawodnik();
 
-
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date myDate = formatter.parse("1995-02-12");
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
@@ -121,6 +123,25 @@ public class Startup {
         z.setWaga(70);
         z.setWzrost(180);
         z.setIdDruzyna(team);
+        
+        session.persist(z);
+
+        Sezon season = new Sezon(12);
+        session.persist(season);
+
+        ZawodnikStatystykiPK zspk = new ZawodnikStatystykiPK(z.getIdZawodnik(), season.getIdSezon());
+
+        ZawodnikStatystyki playerStatistics = new ZawodnikStatystyki(zspk);
+        playerStatistics.setCzerwoneKartki(Integer.MIN_VALUE);
+        playerStatistics.setFaule(4);
+        playerStatistics.setRozegraneMinuty(153);
+        playerStatistics.setZawodnik(z);
+        playerStatistics.setStraconeBramki(0);
+        playerStatistics.setStraconeBramki(0);
+        playerStatistics.setZolteKartki(0);
+        playerStatistics.setSezon(season);
+
+        session.persist(playerStatistics);
 
         t.commit();//transaction is committed  
         session.disconnect();

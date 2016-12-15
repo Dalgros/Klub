@@ -28,7 +28,7 @@
                         <ul class="list-group">
                             <div  th:each="player : ${playersList}" >                             
                                 <li class="list-group-item">
-                                    <a   th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${player.idZawodnik}__}">
+                                    <a   th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${player.idZawodnik}__/}">
                                     <span th:text="' Player first name: '+${player.Imie} "/>
                                     <span th:text="' Player last name: '+${player.Nazwisko} "/>
                                     <span th:text="' Player birthdate: '+${player.dataUrodzenia} "/>

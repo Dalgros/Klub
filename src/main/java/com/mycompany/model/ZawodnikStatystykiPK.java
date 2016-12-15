@@ -17,6 +17,7 @@ public class ZawodnikStatystykiPK implements Serializable {
     private int idSezon;
 
     public ZawodnikStatystykiPK() {
+        
     }
 
     public ZawodnikStatystykiPK(int idZawodnik, int idSezon) {
@@ -34,6 +35,10 @@ public class ZawodnikStatystykiPK implements Serializable {
 
     public void setIdSezon(int idSezon) {
         this.idSezon = idSezon;
+    }
+
+    public void setIdZawodnik(int idZawodnik) {
+        this.idZawodnik = idZawodnik;
     }
     
 }

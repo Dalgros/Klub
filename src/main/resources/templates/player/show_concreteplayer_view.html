@@ -1,0 +1,56 @@
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Show Teams Players</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-9">
+                    <h1 align="center">Players:</h1>
+
+                    <div align="center" class="panel panel-default">
+                        <div class="panel-heading" th:text="'Player:'+${Player.Imie}+' '+ ${Player.Nazwisko}"></div>
+                        <div class="panel-body"><span th:text="' Player birthdate: '+${Player.dataUrodzenia} "/>
+                            <span th:text="' Player height: '+${Player.wzrost} "/>
+                            <span th:text="' Player weight: '+${Player.waga} "/>
+                        </div>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(statisticsList)}">
+                        <ul class="list-group">
+                            <div  th:each="statistic : ${statisticsList}" >                             
+                                <li class="list-group-item">
+                                    
+                                    <span th:text="' Statistics for season'+${statistic.sezon.rok} "/>
+                                    <br/>
+                                    <span th:text="' Player goals: '+${statistic.strzeloneBramki} "/>
+                                    <span th:text="' Player lost goals: '+${statistic.straconeBramki} "/>
+                                    <span th:text="' Player yellow cards: '+${statistic.zolteKartki} "/>
+                                    <span th:text="' Player red cards: '+${statistic.czerwoneKartki} "/>
+                                     <span th:text="' Player fauls commited '+${statistic.czerwoneKartki} "/>
+                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${Player.idZawodnik}__/s/}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/remove/__${Player.idZawodnik}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                    </div>
+
+                                </li>
+                            </div>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -51,8 +51,6 @@ public class Zawodnik implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zawodnik")
     private Collection<ZawodnikStatystyki> zawodnikStatystykiCollection;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idZawodnik")
-    private Collection<Kontrakt> kontraktCollection;
 
     public Zawodnik() {
     }
@@ -121,12 +119,5 @@ public class Zawodnik implements Serializable {
         this.zawodnikStatystykiCollection = zawodnikStatystykiCollection;
     }
 
-    public Collection<Kontrakt> getKontraktCollection() {
-        return kontraktCollection;
-    }
-
-    public void setKontraktCollection(Collection<Kontrakt> kontraktCollection) {
-        this.kontraktCollection = kontraktCollection;
-    }
 
 }

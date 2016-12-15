@@ -22,34 +22,33 @@ public class Sezon implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sezon")
     private Integer idSezon;
-    
-    @Column(name = "data")
-    @Temporal(TemporalType.DATE)
-    private Date data;
-    
+
+    @Column(name = "rok")
+    private Integer rok;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sezon")
     private Collection<DruzynaStatystyki> druzynaStatystykiCollection;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sezon")
     private Collection<ZawodnikStatystyki> zawodnikStatystykiCollection;
 
     public Sezon() {
     }
 
-    public Sezon(Integer idSezon) {
-        this.idSezon = idSezon;
+    public Sezon(Integer rok) {
+        this.rok=rok;
     }
 
     public Integer getIdSezon() {
         return idSezon;
     }
 
-    public Date getData() {
-        return data;
+    public Integer getRok() {
+        return rok;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setRok(Integer rok) {
+        this.rok = rok;
     }
 
     public Collection<DruzynaStatystyki> getDruzynaStatystykiCollection() {

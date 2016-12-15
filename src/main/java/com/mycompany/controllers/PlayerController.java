@@ -6,10 +6,8 @@
 package com.mycompany.controllers;
 
 import com.mycompany.forms.PlayerForm;
-import com.mycompany.forms.TeamForm;
 import com.mycompany.model.Druzyna;
-import com.mycompany.model.Liga;
-import com.mycompany.model.Sekcja;
+import com.mycompany.model.Sezon;
 import com.mycompany.model.Zawodnik;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import com.mycompany.model.ZawodnikStatystyki;
+import java.util.ArrayList;
 
 /**
  *
@@ -156,7 +156,29 @@ public class PlayerController {
         player.setDataUrodzenia(sqlDate);
         t.commit();
         session.close();
-        return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/"+idTeam+"/players/");
+        return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/" + idTeam + "/players/");
+
+    }
+
+    @RequestMapping(value = "/{idPlayer}/", method = RequestMethod.GET)
+    public String showPlayer(@PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, @PathVariable("idTeam") String idTeam, @PathVariable("idPlayer") String idPlayer, Model model) {
+
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Query query = session.createQuery("from ZawodnikStatystyki where id_zawodnik=:id");
+        query.setParameter("id", idPlayer);
+        List<ZawodnikStatystyki> statisticsList = query.getResultList();
+        System.out.println(statisticsList.size());
+        Zawodnik player = session.find(Zawodnik.class, Integer.parseInt(idPlayer));
+        model.addAttribute("statisticsList", statisticsList);
+        model.addAttribute("Club", idClub);
+        model.addAttribute("Team", idTeam);
+        model.addAttribute("Section", idSection);
+        model.addAttribute("Player", player);      
+        session.close();
+        return "player/show_concreteplayer_view";
     }
 
 }

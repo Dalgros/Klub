@@ -119,5 +119,9 @@ public class ZawodnikStatystyki implements Serializable {
     public void setSezon(Sezon sezon) {
         this.sezon = sezon;
     }
+
+    public void setZawodnikStatystykiPK(ZawodnikStatystykiPK zawodnikStatystykiPK) {
+        this.zawodnikStatystykiPK = zawodnikStatystykiPK;
+    }
     
 }
