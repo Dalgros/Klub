@@ -162,8 +162,8 @@ public class PlayerStatisticsController {
         
         
         
-        Query query = session.createQuery("from Sezon where id_sezon=:ids");
-        query.setParameter("ids", Integer.parseInt(playerStatisticsForm.getSeason()));
+        Query query = session.createQuery("from Sezon where rok=:rok");
+        query.setParameter("rok", Integer.parseInt(playerStatisticsForm.getSeason()));
         List<Sezon> seasonList=query.getResultList();
         playerStatistics.setSezon(seasonList.get(0));
         

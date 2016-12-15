@@ -28,8 +28,6 @@
         <mapping class="com.mycompany.model.CzlonekSztabu"/>
         <mapping class="com.mycompany.model.CzlonekZarzadu"/>
         <mapping class="com.mycompany.model.Druzyna"/>
-        <mapping class="com.mycompany.model.DruzynaStatystyki"/>
-        <mapping class="com.mycompany.model.DruzynaStatystykiPK"/>
         <mapping class="com.mycompany.model.Klub"/>
         <mapping class="com.mycompany.model.Liga"/>
         <mapping class="com.mycompany.model.ObiektTreningowy"/>

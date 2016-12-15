@@ -33,15 +33,11 @@ CREATE TABLE sezon(id_sezon INT AUTO_INCREMENT PRIMARY KEY, rok INT NOT NULL);
 CREATE TABLE zawodnik (id_zawodnik INT AUTO_INCREMENT PRIMARY KEY, id_druzyna INT NOT NULL,imie VARCHAR(20),nazwisko VARCHAR(50),data_urodzenia DATE,wzrost INT,waga INT);
 ALTER TABLE zawodnik ADD FOREIGN KEY(id_druzyna) REFERENCES druzyna(id_druzyna) ON DELETE CASCADE;
 
-CREATE TABLE druzyna_statystyki(id_druzyna INT,id_sezon INT NOT NULL, punkty INT,strzelone_bramki INT,stracone_bramki INT,rozegrane_mecze INT,wygrane_mecze INT,przegrane_mecze INT, remisy INT);
-ALTER TABLE druzyna_statystyki ADD FOREIGN KEY(id_druzyna) REFERENCES druzyna(id_druzyna);
-ALTER TABLE druzyna_statystyki ADD FOREIGN KEY(id_sezon) REFERENCES sezon(id_sezon);
 
 
 CREATE TABLE zawodnik_statystyki( id_zawodnik INT,id_sezon INT NOT NULL, strzelone_bramki INT, stracone_bramki INT, zolte_kartki INT,czerwone_kartki INT, faule INT,rozegrane_minuty INT);
 ALTER TABLE zawodnik_statystyki ADD FOREIGN KEY(id_zawodnik) REFERENCES zawodnik(id_zawodnik);
 ALTER TABLE zawodnik_statystyki ADD FOREIGN KEY(id_sezon) REFERENCES sezon(id_sezon) ON DELETE CASCADE;
-ALTER TABLE druzyna_statystyki ADD PRIMARY KEY(id_druzyna,id_sezon);
 ALTER TABLE zawodnik_statystyki ADD PRIMARY KEY(id_zawodnik,id_sezon);
 
 CREATE TABLE czlonek_sztabu(id_czlonek INT AUTO_INCREMENT PRIMARY KEY, id_druzyna INT,imie VARCHAR(20), nazwisko VARCHAR(50), stanowisko VARCHAR(20),pensja INT);

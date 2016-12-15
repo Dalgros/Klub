@@ -23,24 +23,21 @@ public class Druzyna implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_druzyna")
     private Integer idDruzyna;
-    
+
     @Size(max = 20)
     @Column(name = "nazwa")
     private String nazwa;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "druzyna")
-    private Collection<DruzynaStatystyki> druzynaStatystykiCollection;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDruzyna")
     private Collection<Zawodnik> zawodnikCollection;
-    
+
     @OneToMany(mappedBy = "idDruzyna")
     private Collection<CzlonekSztabu> czlonekSztabuCollection;
-    
+
     @JoinColumn(name = "id_sekcja", referencedColumnName = "id_sekcja")
     @ManyToOne(optional = false)
     private Sekcja idSekcja;
-    
+
     @JoinColumn(name = "id_liga", referencedColumnName = "Id_Liga")
     @ManyToOne(optional = true)
     private Liga idLiga;
@@ -62,15 +59,6 @@ public class Druzyna implements Serializable {
 
     public void setNazwa(String nazwa) {
         this.nazwa = nazwa;
-    }
-
-    @XmlTransient
-    public Collection<DruzynaStatystyki> getDruzynaStatystykiCollection() {
-        return druzynaStatystykiCollection;
-    }
-
-    public void setDruzynaStatystykiCollection(Collection<DruzynaStatystyki> druzynaStatystykiCollection) {
-        this.druzynaStatystykiCollection = druzynaStatystykiCollection;
     }
 
     @XmlTransient
@@ -106,5 +94,5 @@ public class Druzyna implements Serializable {
     public void setIdLiga(Liga idLiga) {
         this.idLiga = idLiga;
     }
-    
+
 }

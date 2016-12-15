@@ -27,16 +27,13 @@ public class Sezon implements Serializable {
     private Integer rok;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sezon")
-    private Collection<DruzynaStatystyki> druzynaStatystykiCollection;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sezon")
     private Collection<ZawodnikStatystyki> zawodnikStatystykiCollection;
 
     public Sezon() {
     }
 
     public Sezon(Integer rok) {
-        this.rok=rok;
+        this.rok = rok;
     }
 
     public Integer getIdSezon() {
@@ -49,14 +46,6 @@ public class Sezon implements Serializable {
 
     public void setRok(Integer rok) {
         this.rok = rok;
-    }
-
-    public Collection<DruzynaStatystyki> getDruzynaStatystykiCollection() {
-        return druzynaStatystykiCollection;
-    }
-
-    public void setDruzynaStatystykiCollection(Collection<DruzynaStatystyki> druzynaStatystykiCollection) {
-        this.druzynaStatystykiCollection = druzynaStatystykiCollection;
     }
 
     public Collection<ZawodnikStatystyki> getZawodnikStatystykiCollection() {
