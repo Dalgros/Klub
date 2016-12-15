@@ -13,13 +13,13 @@
 
         <!-- Assume test is the database name -->
         <property name="hibernate.connection.url">
-            jdbc:mysql://L0690.tt.com.pl:3306/klub
+            jdbc:mysql://localhost:3306/klub
         </property>
         <property name="hibernate.connection.username">
-            sqluser
+            root
         </property>
         <property name="hibernate.connection.password">
-            sqluserpw
+            haslo
         </property>
 
         <!-- List of XML mapping files -->
@@ -28,8 +28,6 @@
         <mapping class="com.mycompany.model.CzlonekSztabu"/>
         <mapping class="com.mycompany.model.CzlonekZarzadu"/>
         <mapping class="com.mycompany.model.Druzyna"/>
-        <mapping class="com.mycompany.model.DruzynaStatystyki"/>
-        <mapping class="com.mycompany.model.DruzynaStatystykiPK"/>
         <mapping class="com.mycompany.model.Klub"/>
         <mapping class="com.mycompany.model.Liga"/>
         <mapping class="com.mycompany.model.ObiektTreningowy"/>
