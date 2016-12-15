@@ -100,22 +100,16 @@ public class TeamController {
         Transaction t = session.beginTransaction();
         Sekcja section = session.find(Sekcja.class, Integer.parseInt(idSection));
 
-        Query query = session.createQuery("from Liga where nazwa=:liga");
-        query.setParameter("liga", "default");
-
         Druzyna team = new Druzyna();
         team.setNazwa(teamForm.getName());
         team.setIdSekcja(section);
-        List<Liga> league = query.getResultList();
-        if (!league.isEmpty()) {
-            team.setIdLiga(league.get(0));
-        } else {
-            Liga newLeague = new Liga();
-            newLeague.setKraj("none");
-            newLeague.setNazwa("default");
-            session.persist(newLeague);
-            team.setIdLiga(newLeague);
-        }
+        
+         
+        Query query = session.createQuery("from Liga where nazwa=:name");
+        query.setParameter("name", teamForm.getLeague());
+        List<Liga> leagueList = query.getResultList();
+        if(!leagueList.isEmpty())
+            team.setIdLiga(leagueList.get(0));
 
         session.persist(team);
         t.commit();

@@ -22,6 +22,9 @@
                 <div th:if="${#authorization.expression('isAuthenticated()')}">
                     <div align="center"> <a th:href="@{/club/__${Club}__/sections/create}">Add new section<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
                 </div>
+                <br/>
+                <br/>
+                <br/>
                 <div th:unless="${#lists.isEmpty(sectionList)}">
                     <ul class="list-group">
                         <div  th:each="section : ${sectionList}" >
@@ -30,13 +33,11 @@
                                     <b><span th:text="'Section:'"/></b> <span th:text="${section.dyscyplina}"/>
                                     <br/>
                                     <span align="right" th:text="'Sex: '+${section.plec}"/>
-
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/club/__${Club}__/sections/edit/__${section.idSekcja}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a th:href="@{/club/__${Club}__/sections/remove/__${section.idSekcja}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                    </div>
                                 </a>
-                                <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                    <a th:href="@{/club/__${Club}__/sections/edit/__${section.idSekcja}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                    <a th:href="@{/club/__${Club}__/sections/remove/__${section.idSekcja}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
-                                </div>
-                                <br/>
                             </li>
                         </div>
                     </ul>

@@ -35,7 +35,7 @@
                                     <span th:text="' Player height: '+${player.wzrost} "/>
                                     <span th:text="' Player weight: '+${player.waga} "/>
                                     </a>
-                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
                                         <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/edit/__${player.idZawodnik}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
                                         <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/remove/__${player.idZawodnik}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                                     </div>

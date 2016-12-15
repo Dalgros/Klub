@@ -31,7 +31,6 @@
         <mapping class="com.mycompany.model.DruzynaStatystyki"/>
         <mapping class="com.mycompany.model.DruzynaStatystykiPK"/>
         <mapping class="com.mycompany.model.Klub"/>
-        <mapping class="com.mycompany.model.Kontrakt"/>
         <mapping class="com.mycompany.model.Liga"/>
         <mapping class="com.mycompany.model.ObiektTreningowy"/>
         <mapping class="com.mycompany.model.Sekcja"/>

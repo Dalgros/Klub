@@ -33,24 +33,18 @@
                             <div th:each="team : ${teamList}" >
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <span th:text="'Team name:'+${team.nazwa}"/>
-                                        <br/>
-                                    </div>
-                                    <div class="panel-body">
-                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
-                                            Show team statistics
-                                        </a>
-                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${team.idDruzyna}__/players/}">
-                                            <br/>
-                                            Show team players
-                                        </a>
-                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
-                                            <br/>
-                                            Show team treiner staff
-                                        </a>
-                                        <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <span th:text="'Team name:    '+${team.nazwa}"/>
+                                        <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
                                             <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/edit/__${team.idDruzyna}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
                                             <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/remove/__${team.idDruzyna}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <p th:text="'League:    ' + ${team.idLiga.nazwa}"/>
+                                        <div align="right" >
+                                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}"><span style="margin-left: 10px" class="glyphicon glyphicon-stats"></span> </a>
+                                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${team.idDruzyna}__/players/}"><img style="margin-left: 10px" src="https://cdn4.iconfinder.com/data/icons/sports-vol-3/48/122-20.png"/></a> 
+                                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}"><img style="margin-left: 10px" src="https://cdn3.iconfinder.com/data/icons/general-icons-set-1/100/65_member-20.png"/> </a> 
                                         </div>
                                         <br/>
                                     </div>
