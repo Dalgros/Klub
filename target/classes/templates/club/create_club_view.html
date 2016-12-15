@@ -21,17 +21,7 @@
                 <div class="col-md-6">
                     <h1 align="center">Create club</h1>
                     
-<!--                    <form action="/club/create" th:action="@{/club/create}" th:object="${club}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label>Club name:</label> 
-                            <input type="text" name="name" class="form-control" placeholder="Enter club name"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Logo:</label> 
-                            <input type="file" name="file"/>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>-->
+
                     <form action="#" method="post" th:action="@{/club/create}" th:object="${clubForm}" enctype="multipart/form-data">
                         <div th:if="${#fields.hasErrors('global')}">
                             <div th:errors="*{global}"></div>

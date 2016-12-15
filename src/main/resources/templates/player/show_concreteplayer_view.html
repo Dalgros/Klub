@@ -47,7 +47,7 @@
                                     <div th:text="' Player yellow cards: '+${statistic.zolteKartki} "/>
                                     <div th:text="' Player red cards: '+${statistic.czerwoneKartki} "/>
                                     <div th:text="' Player fauls commited '+${statistic.czerwoneKartki} "/>
-                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
                                         <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${Player.idZawodnik}__/edit/__${statistic.sezon.idSezon}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
                                         <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${Player.idZawodnik}__/remove/__${statistic.sezon.idSezon}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                                     </div>
