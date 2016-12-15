@@ -15,7 +15,6 @@ ALTER TABLE Obiekt_Treningowy ADD FOREIGN KEY(id_budynek) REFERENCES Budynek(Id_
 CREATE TABLE Budynek_Administracyjny(Id_Budynek INT AUTO_INCREMENT PRIMARY KEY);
 ALTER TABLE Budynek_Administracyjny ADD FOREIGN KEY(id_budynek) REFERENCES Budynek(Id_budynek) ON DELETE CASCADE;
 
-
 CREATE TABLE Czlonek_zarzadu(id_czlonek INT AUTO_INCREMENT PRIMARY KEY,id_klub INT NOT NULL,imie VARCHAR(20), nazwisko VARCHAR(50),stanowisko VARCHAR(20),pensja INT, procent_udzialow FLOAT);
 ALTER TABLE Czlonek_zarzadu ADD FOREIGN KEY(id_klub)REFERENCES Klub(Id_klub) ON DELETE CASCADE;
 ALTER TABLE Czlonek_zarzadu ADD CHECK (procent_udzialow>0 AND procent_udzialow<100);
@@ -32,8 +31,6 @@ CREATE TABLE sezon(id_sezon INT AUTO_INCREMENT PRIMARY KEY, rok INT NOT NULL);
 
 CREATE TABLE zawodnik (id_zawodnik INT AUTO_INCREMENT PRIMARY KEY, id_druzyna INT NOT NULL,imie VARCHAR(20),nazwisko VARCHAR(50),data_urodzenia DATE,wzrost INT,waga INT);
 ALTER TABLE zawodnik ADD FOREIGN KEY(id_druzyna) REFERENCES druzyna(id_druzyna) ON DELETE CASCADE;
-
-
 
 CREATE TABLE zawodnik_statystyki( id_zawodnik INT,id_sezon INT NOT NULL, strzelone_bramki INT, stracone_bramki INT, zolte_kartki INT,czerwone_kartki INT, faule INT,rozegrane_minuty INT);
 ALTER TABLE zawodnik_statystyki ADD FOREIGN KEY(id_zawodnik) REFERENCES zawodnik(id_zawodnik);
