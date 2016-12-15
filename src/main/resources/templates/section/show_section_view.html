@@ -14,35 +14,32 @@
     <body>
         <div class="container">
             <div th:replace="header :: header"></div>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <h1 align="center">Sections</h1>
-                    <p align="center"><img src="https://cdn1.iconfinder.com/data/icons/dream-icons-2/160/cup-128.png"/></p>
-                    <div th:if="${#authorization.expression('isAuthenticated()')}">
-                        <div align="center"> <a th:href="@{/club/__${Club}__/sections/create}">Add new section<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
-                    </div>
-                    <div th:unless="${#lists.isEmpty(sectionList)}">
 
-                        <div class='floating-box-building'  th:each="section : ${sectionList}" >
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h1 align="center">Sections</h1>
+                <p align="center"><img src="https://cdn1.iconfinder.com/data/icons/dream-icons-2/160/cup-128.png"/></p>
+                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                    <div align="center"> <a th:href="@{/club/__${Club}__/sections/create}">Add new section<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
+                </div>
+                <div th:unless="${#lists.isEmpty(sectionList)}">
+                    <ul class="list-group">
+                        <div  th:each="section : ${sectionList}" >
+                            <li class="list-group-item">
+                                <a th:href="@{/club/__${Club}__/sections/__${section.idSekcja}__/teams/}">    
+                                    <b><span th:text="'Section:'"/></b> <span th:text="${section.dyscyplina}"/>
+                                    <br/>
+                                    <span align="right" th:text="'Sex: '+${section.plec}"/>
 
-                            <label th:text="'Section:'"/>
-                            <br/>
-                            <label th:text="'Discipline: '+${section.dyscyplina}"/>
-                            <br/>
-                            <label th:text="'Sex: '+${section.plec}"/>
-                            <br/>
-                            
-                            <a th:href="@{/club/__${Club}__/sections/__${section.idSekcja}__/teams/}">       
-                                    Show teams
-                            </a>
-                            <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/club/__${Club}__/sections/edit/__${section.idSekcja}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                <a th:href="@{/club/__${Club}__/sections/remove/__${section.idSekcja}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
-                            </div>
-                            <br/>
+                                </a>
+                                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                    <a th:href="@{/club/__${Club}__/sections/edit/__${section.idSekcja}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                    <a th:href="@{/club/__${Club}__/sections/remove/__${section.idSekcja}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                </div>
+                                <br/>
+                            </li>
                         </div>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

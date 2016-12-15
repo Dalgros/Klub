@@ -23,31 +23,39 @@
                     <div th:if="${#authorization.expression('isAuthenticated()')}">
                         <div align="center"> <a th:href="@{/club/__${Club}__/sections/__${Section}__/teams/create}">Add new team<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
                     </div>
-                    <div class="panel-group" th:unless="${#lists.isEmpty(teamList)}">
 
-                        <div class="panel-heading" th:each="team : ${teamList}" >
 
-                            <label th:text="'Team :'"/>
-                            <br/>
-                            <label th:text="'Team name:'+${team.nazwa}"/>
-                            <br/>
-                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
-                                <br/>
-                                Show team statistics
-                            </a>
-                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${team.idDruzyna}__/players/}">
-                                <br/>
-                                Show team players
-                            </a>
-                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
-                                <br/>
-                                Show team treiner staff
-                            </a>
-                            <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/edit/__${team.idDruzyna}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/remove/__${team.idDruzyna}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                    <br/>
+                    <div th:unless="${#lists.isEmpty(teamList)}">
+
+
+                        <div class="panel-group">
+                            <div th:each="team : ${teamList}" >
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <span th:text="'Team name:'+${team.nazwa}"/>
+                                        <br/>
+                                    </div>
+                                    <div class="panel-body">
+                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
+                                            Show team statistics
+                                        </a>
+                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${team.idDruzyna}__/players/}">
+                                            <br/>
+                                            Show team players
+                                        </a>
+                                        <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/}">
+                                            <br/>
+                                            Show team treiner staff
+                                        </a>
+                                        <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/edit/__${team.idDruzyna}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                            <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/remove/__${team.idDruzyna}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                        </div>
+                                        <br/>
+                                    </div>
+                                </div>
                             </div>
-                            <br/>
                         </div>
                     </div>
                 </div>
