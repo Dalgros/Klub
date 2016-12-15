@@ -24,51 +24,78 @@
                     <div th:if="${#authorization.expression('isAuthenticated()')}">
                         <div align="center"> <a th:href="@{/club/__${Club}__/buildings/create}">Add new building<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
                     </div>
-                    <div th:unless="${#lists.isEmpty(buildings)}">
+                    <br/>
+                    <br/>
+                    <br/>
 
-                        <div class='floating-box-building'  th:each="building : ${buildings}" >
-
-                            <div th:unless="${#lists.isEmpty(arenaList)}" th:each="arena: ${arenaList}">
-                                <div  th:unless="${arena.idBudynek}!=${building.idbudynek}">
+                    <div class="panel-group">
+                        <div th:unless="${#lists.isEmpty(arenaList)}" th:each="arena: ${arenaList}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" >
                                     <p><b>Club arena</b></p>
-                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/edit/__${building.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/remove/__${building.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/club/__${arena.budynek.idKlub.idKlub}__/buildings/edit/__${arena.budynek.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a th:href="@{/club/__${arena.budynek.idKlub.idKlub}__/buildings/remove/__${arena.budynek.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                                     </div>
+                                </div>
+                                <div class="panel-body" >
                                     <p th:text="'Name: ' + ${arena.nazwa}"/>
                                     <p th:text="'Capacity: '+${arena.iloscMiejsc}"/>
                                     <p th:text="'Sport discipine: '+${arena.dyscyplina}"/>
+                                    <div th:unless="${#lists.isEmpty(buildings)}" th:each="building:${buildings}">
+                                        <div th:if="${building.idbudynek}==${arena.budynek.idbudynek}">
+                                            <p><b>Address:</b></p>
+                                            <p th:text="'Street: '+${building.ulicanumer}"/>
+                                            <p th:text="${building.kodPocztowy} + '  ' + ${building.miejscowosc}"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
-                            <div th:unless="${#lists.isEmpty(buildingAdminList)}" th:each="admin: ${buildingAdminList}">
-                                <div  th:unless="${admin.idBudynek}!=${building.idbudynek}">
+                        </div>
+                    </div>
+                    <div class="panel-group">
+                        <div th:unless="${#lists.isEmpty(buildingAdminList)}" th:each="admin: ${buildingAdminList}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" >
                                     <p><b>Club administration</b></p>
-                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/edit/__${building.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/remove/__${building.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a>                         
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/club/__${admin.budynek..idKlub.idKlub}__/buildings/edit/__${admin.budynek..idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a th:href="@{/club/__${admin.budynek..idKlub.idKlub}__/buildings/remove/__${admin.budynek..idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a>                         
+                                    </div>
+                                </div>
+                                <div class="panel-body" >
+                                    <div th:unless="${#lists.isEmpty(buildings)}" th:each="building:${buildings}">
+                                        <div th:if="${building.idbudynek}==${admin.budynek.idbudynek}">
+                                            <p><b>Address:</b></p>
+                                            <p th:text="'Street: '+${building.ulicanumer}"/>
+                                            <p th:text="${building.kodPocztowy} + '  ' + ${building.miejscowosc}"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div th:unless="${#lists.isEmpty(trainingObjectList)}" th:each="tbuilding:${trainingObjectList}">
-                                <div  th:unless="${tbuilding.idBudynek}!=${building.idbudynek}">
-
-                                    <p><b>Trainig Object</b></p>
-                                    <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/edit/__${building.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
-                                        <a th:href="@{/club/__${building.idKlub.idKlub}__/buildings/remove/__${building.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
+                        </div>
+                    </div>
+                    <div class="panel-group">
+                        <div th:unless="${#lists.isEmpty(trainingObjectList)}" th:each="tbuilding:${trainingObjectList}">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" >
+                                    <p><b>Training Object</b></p>
+                                    <div align="right" th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <a th:href="@{/club/__${tbuilding.budynek.idKlub.idKlub}__/buildings/edit/__${tbuilding.budynek.idbudynek}__}"><span style="margin-left: 10px" class="glyphicon glyphicon-pencil"></span> </a>
+                                        <a th:href="@{/club/__${tbuilding.budynek.idKlub.idKlub}__/buildings/remove/__${tbuilding.budynek.idbudynek}__}"><span style="margin-left: 30px" class="glyphicon glyphicon-remove"></span> </a> 
                                     </div>
-                                    <p th:text="'Sport discipine: '+${tbuilding.dyscyplina}"/>
-
+                                </div>
+                                <div class="panel-body" >
+                                    <p th:text="'Sport discipline: '+${tbuilding.dyscyplina}"/>
+                                    <div th:unless="${#lists.isEmpty(buildings)}" th:each="building:${buildings}">
+                                        <div th:if="${building.idbudynek}==${tbuilding.budynek.idbudynek}">
+                                            <p><b>Address:</b></p>
+                                            <p th:text="'Street: '+${building.ulicanumer}"/>
+                                            <p th:text="${building.kodPocztowy} + '  ' + ${building.miejscowosc}"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-                            <p><b>Address</b></p>
-                            <p th:text="'City: '+${building.miejscowosc}"/>
-                            <p th:text="'Post code: '+${building.kodPocztowy}"/>
-                            <p th:text="'Street: '+${building.ulicanumer}"/>
-                            <br/><br/>
                         </div>
                     </div>
                 </div>

@@ -117,7 +117,7 @@ public class TeamController {
         factory.close();
         return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/");
     }
-
+    
     @GetMapping("/edit/{idTeam}")
     public String editTeam(TeamForm teamForm, Model model, @PathVariable("idTeam") String idTeam, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection) {
         model.addAttribute("Section", idSection);
