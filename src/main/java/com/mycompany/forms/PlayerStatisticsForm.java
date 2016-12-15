@@ -16,6 +16,16 @@ public class PlayerStatisticsForm {
     private String redCards;
     private String minutesPlayed;
     private String faulsCommited;
+    private String season;
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+    
 
     public String getScoredGoals() {
         return scoredGoals;

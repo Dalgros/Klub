@@ -30,6 +30,11 @@
                             <div th:text="' Player weight: '+${Player.waga} "/>
                         </div>
                     </div>
+
+                    <div th:if="${#authorization.expression('isAuthenticated()')}">
+                        <div align="center"> <a th:href="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${Player.idZawodnik}__/create/}">Add new statistics<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
+                    </div>
+                    <br/>
                     <div th:unless="${#lists.isEmpty(statisticsList)}">
                         <ul class="list-group">
                             <div  th:each="statistic : ${statisticsList}" >                             

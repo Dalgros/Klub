@@ -7,8 +7,11 @@ package com.mycompany.controllers;
 
 import com.mycompany.forms.PlayerForm;
 import com.mycompany.forms.PlayerStatisticsForm;
+import com.mycompany.model.Liga;
+import com.mycompany.model.Sezon;
 import com.mycompany.model.Zawodnik;
 import com.mycompany.model.ZawodnikStatystyki;
+import com.mycompany.model.ZawodnikStatystykiPK;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -53,6 +56,7 @@ public class PlayerStatisticsController {
         model.addAttribute("Section", idSection);
         model.addAttribute("Player", player);
         session.close();
+        factory.close();
         return "player/show_concreteplayer_view";
     }
 
@@ -88,6 +92,7 @@ public class PlayerStatisticsController {
         session.persist(statistic.get(0));
         t.commit();
         session.close();
+        factory.close();
         return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/" + idTeam + "/players/" + idPlayer + "/");
 
     }
@@ -106,10 +111,69 @@ public class PlayerStatisticsController {
         List<ZawodnikStatystyki> statistic = query.getResultList();
 
         session.remove(statistic.get(0));
+        
 
         t.commit();
         session.close();
         factory.close();
+        return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/" + idTeam + "/players/" + idPlayer + "/");
+    }
+
+    @GetMapping("/create/")
+    public String createStatistics(PlayerStatisticsForm playerStatisticsForm, Model model, @PathVariable("idTeam") String idTeam, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, @PathVariable("idPlayer") String idPlayer) {
+        model.addAttribute("Section", idSection);
+        model.addAttribute("Club", idClub);
+        model.addAttribute("Team", idTeam);
+        model.addAttribute("Player", idPlayer);
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+        List<Sezon> seasonList = session.createCriteria(Sezon.class).list();
+        System.out.println("" + seasonList.size());
+        model.addAttribute("seasonList", seasonList);
+        t.commit();
+        session.close();
+        factory.close();
+        return "/player/create_playerstatistics_view";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView createstatistics(PlayerStatisticsForm playerStatisticsForm, Model model, @PathVariable("idTeam") String idTeam, @PathVariable("idClub") String idClub, @PathVariable("idSection") String idSection, @PathVariable("idPlayer") String idPlayer) {
+        model.addAttribute("Section", idSection);
+        model.addAttribute("Club", idClub);
+        model.addAttribute("Team", idTeam);
+        model.addAttribute("Player", idPlayer);
+        Configuration cfg = new Configuration();
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+
+        
+        ZawodnikStatystyki playerStatistics=new ZawodnikStatystyki();
+        playerStatistics.setCzerwoneKartki(Integer.parseInt(playerStatisticsForm.getRedCards()));
+        playerStatistics.setZolteKartki(Integer.parseInt(playerStatisticsForm.getYellowCards()));
+        playerStatistics.setRozegraneMinuty(Integer.parseInt(playerStatisticsForm.getMinutesPlayed()));
+        playerStatistics.setFaule(Integer.parseInt(playerStatisticsForm.getFaulsCommited()));
+        playerStatistics.setStrzeloneBramki(Integer.parseInt(playerStatisticsForm.getScoredGoals()));
+        playerStatistics.setStraconeBramki(Integer.parseInt(playerStatisticsForm.getLostGoals()));
+        
+        
+        
+        Query query = session.createQuery("from Sezon where id_sezon=:ids");
+        query.setParameter("ids", Integer.parseInt(playerStatisticsForm.getSeason()));
+        List<Sezon> seasonList=query.getResultList();
+        playerStatistics.setSezon(seasonList.get(0));
+        
+        ZawodnikStatystykiPK zspk =new ZawodnikStatystykiPK(Integer.parseInt(idPlayer),seasonList.get(0).getIdSezon());
+        playerStatistics.setZawodnikStatystykiPK(zspk);
+        session.persist(playerStatistics);
+        t.commit();
+        session.close();
+        factory.close();
+
         return new ModelAndView("redirect:/club/" + idClub + "/sections/" + idSection + "/teams/" + idTeam + "/players/" + idPlayer + "/");
     }
 

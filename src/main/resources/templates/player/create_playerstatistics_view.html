@@ -1,0 +1,69 @@
+<html 
+    xmlns:th="http://www.thymeleaf.org" >
+    <head>
+        <title>Edit player statistics</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" th:href="@{/css/style.css}"
+              href="../../css/style.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    </head>
+    <body>
+        <div class="container">
+            <div th:replace="header :: header"></div>
+
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+
+                    <h1 align="center">Create statistics</h1>
+
+                    <form method="post" th:action="@{/club/__${Club}__/sections/__${idSection}__/teams/__${Team}__/players/__${Player}__/create/}" th:object="${playerStatisticsForm}">
+                        <div class="form-group">
+                            <label>Scored goals</label> 
+                            <input type="number" th:field="*{scoredGoals}" class="form-control" min="0" step="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Lost goals</label> 
+                            <input type="number" th:field="*{lostGoals}" class="form-control" min="0"  step="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Yellow Cards </label>
+                            <input type="number" th:field="*{yellowCards}" class="form-control" min="0" step="1" />
+
+                        </div> 
+                        <div class="form-group">
+                            <label>Red cards</label>
+                            <input type="number" th:field="*{redCards}" class="form-control" min="0"  step="1"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label>Fauls Commited</label>
+                            <input type="number" th:field="*{faulsCommited}" class="form-control" min="0"  step="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Minutes played</label>
+                            <input type="number" th:field="*{minutesPlayed}" class="form-control" min="0"  step="1"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Season: </label>
+                            <select class="form-control" th:field="*{season}" id="sel1">
+                                <div th:unless="${#lists.isEmpty(seasonList)}">
+                                    <div th:each="season : ${seasonList}" >
+                                        <option th:text="${season.rok}"></option>
+                                    </div>
+                                </div>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
