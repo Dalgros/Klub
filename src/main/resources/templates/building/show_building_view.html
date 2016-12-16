@@ -22,7 +22,7 @@
                     <h1 align="center">Buildings</h1>
                     <p align="center"><img src="https://cdn4.iconfinder.com/data/icons/miu/24/house-home-real_estate-property-glyph-128.png"/></p>
                     <div th:if="${#authorization.expression('isAuthenticated()')}">
-                        <div align="center"> <a th:href="@{/club/__${Club}__/buildings/create}">Add new building<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
+                        <div align="center"> <a th:href="@{/club/__${club}__/buildings/create}">Add new building<span style="margin-left: 10px" class="glyphicon glyphicon-plus"></span> </a> </div>
                     </div>
                     <br/>
                     <br/>

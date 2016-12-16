@@ -35,7 +35,7 @@
 
                         <div class="form-group">
                             <label>Logo:</label> 
-                            <input type="file" name="Logo file" th:field="*{logo}"/>
+                            <input type="file" name="Logo file" th:field="*{logo}" required="required"/>
                         </div>
                         <div class="alert alert-warning"
                              th:if="${#fields.hasErrors('logo')}" th:errors="*{logo}">Logo error</div>
